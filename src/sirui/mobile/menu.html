@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <title>司睿SlRUl知产交易平台</title>
+    <link rel="stylesheet" href="../m-content/lib/weiui/weui.css">
+    <link rel="stylesheet" href="../m-content/lib/jquery-wei/css/jquery-weui.min.css">
+    <link rel="stylesheet" href="../m-content/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../m-content/css/style.css">
+    <!-- <link rel="stylesheet" href="../m-content/script/global.js"> -->
+    <script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.3.2.js"></script>
+    <script src="../m-content/script/global.js"></script>
+    <script src="../m-content/lib/jquery/js/jquery.min.js"></script>
+    <script src="../m-content/lib/jquery-wei/js/jquery-weui.js"></script>
+    <script src="../m-content/lib/jquery-wei/js/swiper.js"></script>
+    <style>
+    	img{
+    		width: 100%;
+    	}
+    </style>
+</head>
+
+<body>
+	<div class="container" id="J_container">
+
+   		<div class="weui-cells">
+   		  <a class="weui-cell weui-cell_access" href="./TMmarket.html">
+   		    <div class="weui-cell__bd">
+   		      <p>商标市场</p>
+   		    </div>
+   		    <div class="weui-cell__ft">
+   		    </div>
+   		  </a>
+   		  <a class="weui-cell weui-cell_access" href="./patentmarket.html">
+   		    <div class="weui-cell__bd">
+   		      <p>专利市场</p>
+   		    </div>
+   		    <div class="weui-cell__ft">
+   		    </div>
+   		  </a>
+   		   <a class="weui-cell weui-cell_access" href="./copyrightmarket.html">
+   		    <div class="weui-cell__bd">
+   		      <p>版权市场</p>
+   		    </div>
+   		    <div class="weui-cell__ft">
+   		    </div>
+   		  </a>
+   		  <a class="weui-cell weui-cell_access" href="./agentmarket.html">
+   		    <div class="weui-cell__bd">
+   		      <p>商标代理</p>
+   		    </div>
+   		    <div class="weui-cell__ft">
+   		    </div>
+   		  </a>
+        <a class="weui-cell weui-cell_access" href="./TMclassify.html">
+          <div class="weui-cell__bd">
+            <p>商标分类</p>
+          </div>
+          <div class="weui-cell__ft">
+          </div>
+        </a>
+        <div class="line"></div>
+        <a class="weui-cell weui-cell_access" href="./faq.html">
+            <div class="weui-cell__bd">
+              <p>常见问题</p>
+            </div>
+            <div class="weui-cell__ft">
+            </div>
+          </a>
+   		</div>
+   		
+	</div>
+   
+   <div class="g-footer">
+   	
+   </div>
+</body>
+<script type="text/x-dot-template" id="J_agent_temp">
+
+</script>
+<script src="../m-content/lib/mock/js/mock-min.js"></script>
+<script src="../config.js"></script>
+<script src="../m-content/lib/doT/js/doT.js"></script>
+<script src="../m-content/script/commom.js"></script>
+<script>
+
+$(function() {
+    
+    commom.config({
+     isTopBtns: true, // 顶部按钮
+     TopBtnsListenEL : '#J_container' // 顶部按钮监听滚动的对象
+   })
+
+})
+</script>
+
+</html>

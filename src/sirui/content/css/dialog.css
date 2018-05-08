@@ -1,0 +1,53 @@
+.m-dialog{
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+
+}
+
+.m-dialog .inner-box{
+	margin: 100px auto;
+	padding: 20px;
+	width: 830px;
+	transform: translateX(175px);
+	/*height: 80%;*/
+	border:1px solid #ccc;
+	border-radius: 10px;
+	background-color: #fff;
+	box-sizing: border-box;
+	/*overflow: auto;*/
+}
+
+.m-dialog .dialog-header{
+	/*padding: 20px;*/
+	position: relative;
+	border-bottom: 1px solid #ccc;
+	overflow: hidden;
+}
+
+.m-dialog .dialog-title{
+	overflow: hidden;
+	margin: 10px 0;
+	padding-left: 15px;
+	border-left: 5px solid #00A2E9;
+	font-size: 25px;
+	line-height: 1.5;
+	white-space: nowrap;
+    padding-right: 30px;
+    text-overflow: ellipsis;
+}
+
+.m-dialog .dialog-close{
+	position: absolute;
+	top: 0;
+	right: 0;
+	color: #999;
+	cursor: pointer;
+}
+
+.m-dialog .dialog-content{
+	margin-top: 10px;
+	overflow-y: auto;
+}

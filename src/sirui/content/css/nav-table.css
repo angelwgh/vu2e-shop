@@ -1,0 +1,47 @@
+/*导航表样式*/
+.nav-table{
+	margin-top: 30px;
+	padding: 20px;
+	width: 100%;
+	
+}
+
+.nav-table .nav-item{
+	border-top: 1px dashed #e5e5e5;
+    padding: 8px 0 8px 8px;
+    position: relative;
+}
+
+.nav-table .nav-item .title{
+	float: left;
+    width: 70px;
+    height: 30px;
+    line-height: 30px;
+    text-align: right;
+    color: #666;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.nav-table .nav-item .content{
+	margin-left: 80px;
+}
+
+.nav-table .nav-item .option,
+.nav-table .nav-item .options{
+	display: inline-block;
+    padding: 2px 6px;
+    margin: 5px 0;
+    border-radius: 3px;
+    color: #666;
+    cursor: pointer;
+    font-size: 12px;
+    line-height: 20px;
+    white-space: nowrap;
+}
+
+.nav-table .nav-item a.options.active,
+.nav-table .nav-item a.options:hover{
+	background-color: #ff6155;
+    color: #fff;
+}

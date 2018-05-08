@@ -1,0 +1,142 @@
+﻿@charset "utf-8";
+/*遮罩层*/
+	.mark{position: fixed;z-index: 98;top: 0;left: 0;bottom: 0;right: 0;background-color: rgba(0,0,0,0.4);}
+	.mark .mark_box{position: relative;background-color: #fff;}
+
+	.crumb,.crumb a{color: #888;}
+	.crumb{font-size: 14px;line-height: 30px;padding: 14px 0 12px;}
+/* 表单控件 */
+	.checkbox{-webkit-appearance: none;position: relative;z-index:1; width: 16px;height: 16px;background-color: rgba(0,0,0,0);border: rgba(0,0,0,0);top:3px\0;#top: 3px;}
+	@-moz-document url-prefix(){.checkbox{top:3px;} }
+	.checkbox:before{content: '';width: 16px;height: 16px;background: url(../images/icon.png) no-repeat -158px -213px;position: absolute;left: 0;top: 3px;z-index: 5;}
+	.checkbox:checked:before{background-position: -158px -176px;z-index: 100;}
+
+	.dropdown{display: inline-block;width: 142px;line-height: 30px;background: #f6f6f6;border: 1px solid #d1d1d1;position: relative;cursor: pointer;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;}
+	.dropdown div {height: 0;margin-top: -1px;background: #fff;border: 1px solid #ccc;border-top: 1px solid #eee;overflow: hidden;opacity: 0;filter: alpha(opacity=0);position: absolute;top: 100%;left: -1px;right: -1px;max-height: 300px;overflow-y: auto;}
+	.dropdown .old { display: none;}
+	.dropdown .carat, .classify_alert .carat {display: block; width: 20px;height: 100%;background: #f6f6f6 url(../images/black_down.png) no-repeat 2px 7px;position: absolute; right: 0;top: 0;}
+	.dropdown .selected, .dropdown li{padding: 8px 7px;}
+	.dropdown li, .classify_alert .selected {display: block;font-size: 14px;line-height: 1;padding: 10px 3px;cursor: pointer;}
+	.dropdown.open div {opacity: 1;filter: alpha(opacity=100); z-index: 2;}
+	.dropdown.open div ul li{color: #666}
+	.dropdown .carat,.dropdown {background-color: #fff;} 
+	.dropdown.dropdown_export {padding: 5px 7px;}
+	.dropdown.btn_uorange{border: 1px solid #ff8933;}
+	.dropdown.btn_ured{border: 1px solid #ff6155;}
+	.btn.btn_uorange .carat{width: 7px;height: 7px;background-color: #ff8933;background: url(../images/icon_lip.png) no-repeat -56px -281px;    margin: 14px 7px 0 0;}
+	.btn.btn_uorange div{border: 1px solid #ff8933;}
+	.btn.btn_ured .carat{width: 7px;height: 7px;background-color: #ff6155;background: url(../images/icon_lip.png) no-repeat -56px -281px;    margin: 14px 7px 0 0;}
+	.btn.btn_ured div{border: 1px solid #ff6155;}
+	.datep{padding: 0  25px;}
+	#inpstart,#inpend{border: 1px solid #dcdcdc;padding: 4px 5px;}
+
+/* 表单控件 */
+/*按钮样式*/
+	.btn_empty , .btn_icon{display: inline-block;padding: 6px 20px;margin: 0 5px;line-height: 20px;text-align: center;border-radius: 3px;font-size: 16px;cursor: pointer;position: relative;font-family: "Microsoft YaHei"}
+	a.btn ,.btn_icon, a.btn_icon {color: #fff;}
+	/*.btn{background-color: #428ae2;border: none;}*/
+
+	/*.btn , .btn_empty , .btn_icon{display: inline-block;padding: 6px 20px;margin: 0 5px;line-height: 20px;text-align: center;border-radius: 3px;font-size: 16px;cursor: pointer;position: relative;font-family: "Microsoft YaHei"}
+	.btn, a.btn ,.btn_icon, a.btn_icon {color: #fff;}
+	.btn{background-color: #428ae2;border: none;}*/
+	.btn.btn_pay{padding: 6px 23px;line-height: 23px;}
+	.btn.btn_red{background-color: #ff3145;}
+	.btn.btn_orange{background-color: #ff4800; }
+
+	.btn.btn_blue{background-color: #428ae2;}
+	.btn.btn_uorange{background-color: #ff8933;border: 1px solid #00A2E9;}
+	.btn.btn_ured{background-color: #ff6155;border: 1px solid #ff6155;}
+	.btn.btn_ured:hover{background-color:#eb584c}
+	.btn.btn_gray{background-color: #939ba4;}
+	.btn.btn_lightgray{background-color: #CACACA;}
+	.btn.btn_ugray{background-color: #fbfbfb;border: 1px solid #dddddd;color: #333;}
+	.btn.btn_download{padding: 8px 38px;}
+	.btn.btn_cash{padding:5px 26px; }
+
+	.btn_empty{background-color: #fff;}
+	.btn_empty.btn_blue {color: #428ae2 ;border: 1px solid #428ae2 ;}
+	.btn_empty.btn_blue:hover{background-color: #428ae2 }
+	.btn_empty.btn_orange{color:#ff4800; border: 1px solid #ff4800 ; }
+	.btn_empty.btn_orange:hover{background-color: #ff4800 ; }
+	.btn_empty.btn_uorange{color:#ff8933; border: 1px solid #ff8933 ; }
+	.btn_empty.btn_uorange:hover{background-color: #ff8933 ; }
+	.btn_empty.btn_red {color: #ff3145;border: 1px solid #ff3145 ;}
+	.btn_empty.btn_red:hover {background-color: #ff3145;}
+	.btn_empty.btn_ured {color: #ff6155;border: 1px solid #ff6155 ;}
+	.btn_empty.btn_ured:hover {background-color: #ff6155;}
+	.btn_empty.btn_ugray{color: #93a8be;border: 1px solid #93a8be;}
+	.btn_empty.btn_ugray:hover {background-color: #93a8be;}
+	.btn_empty:hover, a.btn_empty:hover{color:#fff;}
+
+	.btn_icon{border: none;padding: 6px 10px 6px 12px;margin: 0;font-size: 14px;}
+	.btn_icon.btn_ured{background-color: #BF3EFF;    }
+	.btn_icon.btn_uorange{background-color: #2789ed;}
+	.btn_icon.btn_ublue{background-color: #8095ff;}
+	
+	.btn_icon.broker_icon:after{background-position: -117px -98px;}
+	.btn_icon.qq_icon:after{background-position: -156px -98px;}
+	.btn_icon.btn_uorange:after{background-position: -40px -98px;}
+	.btn_icon.btn_ublue:after{background-position: -80px -98px;}
+	.btn_icon.btn_icon_people:after{background-position: -116px -99px;}
+	.btn_icon.btn_icon_market:after{background-position: -152px -139px;}
+	.btn_icon.group_icon:after{background-position: 0 -210px;}
+	.btn_icon.edit_icon:after{background-position: -42px -210px;}
+
+	.ui_btn_pull{border-radius: 0;background-color:#ff6155;font-size: 14px;color: #fff; }
+	.ui_btn_small{width: 80px;margin: 0 5px;height: 28px;line-height: 27px;font-size: 14px;font-weight: 400;padding: 0}
+	.ui_btn_radius3{border-radius: 3px;}
+	.ui_btn_radius20{border-radius: 20px;}
+/*按钮样式*/
+
+/* 图标 */
+	.icon{display:inline-block;background:url(../images/icon.png) no-repeat;vertical-align: middle;}
+	.icon.ensure{width:23px;height:23px;background-position:-40px 0;}
+	.icon.letter_icon{width:35px;height:44px;background:url(../images/icon_lip.png) no-repeat;background-position:0 -288px;}
+	.icon.finish {width:18px;height:18px;background-position:-78px -32px;}
+	.icon.not_finish {width:18px;height:18px;background-position:-113px -32px;}
+	.icon.smiling {width:60px;height:60px;background-position:-80px -174px;}
+/* 图标 */
+
+/*分页页码*/
+	.page a, .page strong {padding:2px 9px;border:1px solid #E0E0E0;display:inline-block;*display:inline;*zoom:1;vertical-align:middle;}
+	.page a:hover,.page strong {border:1px solid #00A2E9;}
+	.page_box {padding:20px 0;font-size:14px;font-weight:400;color:#666;}
+	.page a {margin:0 3px;color:#666;}
+	.page strong {margin:0 3px;}
+	.page a:hover, .page strong {background:#00A2E9;color:#fff;}
+	.page .arrow {display:inline-block;*display:inline;*zoom:1;}
+	.page .arrow_left {margin-right:5px;width:0; height:0; border-top:5px solid transparent;border-bottom:5px solid transparent; border-right:5px solid #666; }
+	.page .arrow_right {margin-left:5px;width:0; height:0; border-top:5px solid transparent;border-bottom:5px solid transparent;border-left:5px solid #666;}
+	.page a:hover .arrow_left {border-right:5px solid #fff; }
+	.page a:hover .arrow_right {border-left:5px solid #fff; }
+	.page .com_input{width: 30px;padding: 0; border: 1px solid #e0e0e0;height: 26px;}
+	.page .page_btn {padding: 2px 8px; color: #666;font-size: 14px;font-weight: 400; background-color: #f0f0f0;border: 1px solid #cacaca;cursor: pointer;}
+
+/*分页页码*/
+
+/*咨询侧边*/
+.gotrack {display: block;position: fixed; overflow: inherit; width: 70px;background-color: #00A2E9;z-index: 99;right: 10px;bottom: 10%;margin-top: -123px;color: #fff;font-size: 12px;text-align:center;border-radius: 15px;}
+.gotrack .goconsult {display: inline-block;background-image: url(../images/icon_consults.png);background-position: center 14px;background-repeat: no-repeat;padding: 0 5px;padding-top: 52px;text-align: center; width: 60px;color: #fff;margin: 0 -5px;background-color: #ff6155;line-height: 16px;padding-bottom: 5px;position: relative;height: 43px;}
+.gotrack .goconsult:hover{background-color: #eb584c;}
+.gotrack .unread_msg{position: absolute;font-size:13px;border-radius: 20px;padding: 0 5px;top: 7px;right: 13px;}
+.gotrack .goconsult .unread_msg{background-color: #fff;color: #ff6155;}
+.gotrack .gowechat .unread_msg{background-color:#ff6155;color: #fff;right: 6px;}
+
+.gotrack .gophone{background: url(../images/icon_consults.png) top center; background-repeat: no-repeat; display: inline-block;height: 28px;padding-top: 47px;color: #fff;
+    width: 100%;}
+.gotrack .goques{background: url(../images/icon_consults.png) top center; background-repeat: no-repeat; display: inline-block;height: 28px;padding-top: 47px;color: #fff;border-top: 1px solid #fff;
+    width: 100%;}
+
+.gotrack .gotop,.gotrack .gowechat {background: url(../images/icon_consults.png) top center; background-repeat: no-repeat; display: inline-block;height: 28px;padding-top: 47px;color: #fff;border-top: 1px solid #fff;
+    width: 100%;}
+
+.gotrack .gophone {background-position: center -159px;}
+.gotrack .goques {background-position: center -236px;}
+.gotrack .gowechat{background-position: center -86px;position: relative;}
+.gotrack .gotop{background-position: center -313px;}
+
+.gotrack .gotrack_cont {display: none;width: 170px;position: absolute;right: 70px;bottom: 130px;z-index: 110;height: 65px;padding: 5px 10px; line-height: 65px;background: #616161;color: #fff;text-align: center;font-size: 20px;border-left: 3px solid #ff6155;bottom:67%;}
+.gotrack .goques .gotrack_cont { padding: 7.5px 10px;}
+.gotrack a:hover .gotrack_cont {display: block;}
+.require_text{color: #ff6155;font-size: 13px;margin-top: 4px;}
+/*咨询侧边*/

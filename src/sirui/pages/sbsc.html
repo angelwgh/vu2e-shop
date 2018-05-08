@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta content="webkit" name="renderer">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="icon" href="#" type="image/x-icon">
+    <title>司睿_商标市场</title>
+    <meta name="keywords" content="司睿平台，买商标、卖商标、商标查询、商标代理，近似查询，综合查询，商标名称查询，申请人查询，注册号查询，中文商标，英文商标，拼音商标，数字商标，图形商标，商标导入，商标发布，商标交易，知识产权服务">
+    <meta name="description" content="司睿平台是国内专业商标交易平台，提供包括商标查询、商标交易、商标导入管理等一站式服务，是致力于为国内外企业、相关单位及代理机构提供便捷、安全的商标解决方案的综合性网络平台。 商标是品牌的起点，司睿商标网让广大企业的商标品牌建设之路更加平坦，帮助企业商标品牌资源优势最大化，从而提高
+        综合竞争力！">
+    <meta name="author" content="司睿">
+    <link rel="stylesheet" href="../content/css/bootstrap.css">
+    <link rel="stylesheet" href="../content/css/public.css">
+    <link rel="stylesheet" href="../content/css/common.css">
+    <link rel="stylesheet" href="../content/css/lunbo.css">
+    <link rel="stylesheet" href="../content/css/style.css">
+    <link rel="stylesheet" href="../content/css/nav-table.css">
+    <script src="../content/js/lib/hm.js"></script>
+    <script src="../content/js/lib/jquery.js"></script>
+    <script src="../content/js/lib/bootstrap.js"></script>
+    <script src="../content/js/lib/bootstrap-paginator.js"></script>
+    <script src="../content/js/lib/doT.js"></script>
+    <script src="../content/js/lib/lunbo.js"></script>
+</head>
+
+<body style="opacity: 0">
+    <!-- 页头开始 -->
+    <div class="m-header">
+    </div>
+    <!-- 页头结束 -->
+    <div class="main">
+        <!-- 筛选条件 -->
+        <div class="nav-table" id="J_nav_table_view">
+        </div>
+        <div class="clearfix sort_body">
+            <ul class="left sort">
+                <li class="asc" data-orderby="price">按价格</li>
+                <li class="asc" data-orderby="time">按发布时间</li>
+            </ul>
+            
+        </div>
+        <div class="market">
+            <ul class="trade_item trademark clearfix" id="J_list_view">
+                
+            </ul>
+        </div>
+        <div>
+            <ul id="page"></ul>
+        </div>
+        
+    </div>
+    <!-- 底部信息开始 -->
+    <div class="newfoot">
+    </div>
+    <!-- 底部信息结束 -->
+    <!-- 筛选条件模板 -->
+    <script type="text/x-dot-template" id="J_nav_table_temp">
+        <div class="nav-item clearfix">
+            <div class="title">
+                快速筛选
+            </div>
+            <div class="content">
+                <div class="btn btn-info btn-sm" id="J_clear_select">全部清除</div>
+            </div>
+        </div>
+        <div class="nav-item clearfix">
+            <div class="title">
+                商品名称
+            </div>
+            <div class="content">
+                <input type="text" placeholder="请输入商品名称/注册号" id="J_words">
+                <input type="button" class="btn btn-success btn-sm" value="查询" id="J_words_view">
+            </div>
+        </div>
+        <div class="nav-item clearfix" id="J_cat_type">
+            <div class="title">
+                商品分类
+            </div>
+            <div class="content" data-type="catType">
+                {{ for(var i = 0; i
+                < it.catTypes.length; i++){}} <a class="options">
+                    {{=it.catTypes[i]}}
+                    </a>
+                    {{} }}
+            </div>
+        </div>
+        <div class="nav-item clearfix" id="J_hot_type">
+            <div class="title">
+                热门行业
+            </div>
+            <div class="content" data-type="hotType">
+                {{ for(var i = 0; i
+                < it.hotTypes.length; i++){}} <a class="options">
+                    {{=it.hotTypes[i]}}
+                    </a>
+                    {{} }}
+            </div>
+        </div>
+        <div class="nav-item clearfix" id="J_formby">
+            <div class="title">
+                发布源
+            </div>
+            <div class="content" data-type="fromby">
+                {{ for(var i = 0; i
+                < it.fromby.length; i++){}} <a class="options">
+                    {{=it.fromby[i]}}
+                    </a>
+                    {{} }}
+            </div>
+        </div>
+        <div class="nav-item clearfix" id="J_tm_type">
+            <div class="title">
+                商标元素
+            </div>
+            <div class="content" data-type="tmType">
+                {{ for(var i = 0; i
+                < it.tmTypes.length; i++){}} <a class="options">
+                    {{=it.tmTypes[i]}}
+                    </a>
+                    {{} }}
+            </div>
+        </div>
+        <div class="nav-item clearfix" id="J_price">
+            <div class="title">
+                价格范围
+            </div>
+            <div class="content" data-type="price">
+                {{ for(var i = 0; i
+                < it.price.length; i++){}} <a class="options">
+                    {{=it.price[i]}}
+                    </a>
+                    {{} }}
+            </div>
+        </div>
+    </script>
+
+    <!-- 列表模板 -->
+    <script type="text/x-dot-template" id="J_list_temp">
+
+        {{for (var i = 0; i < it.length; i++){ }}
+        <li>
+            <a href="detail.html?id={{=it[i].id}}&type=mark" target="_blank">
+                <div class="img_box">
+                    <img src="{{=it[i].imgsrc}}" style="width:113px;height:97px" onerror="this.src='/images/default_min.png';this.onerror=null">
+                    <span class="item_tab bg_red">{{=it[i].formby}}</span>
+                </div>
+                <p class="trade_name">
+                    <span class="txt" title="菏花泰">{{=it[i].name}}</span>
+                    <em class="tally tally_r"></em>
+                </p>
+                <p class="item_tag">{{=it[i].catgory}}</p>
+                <p class="trade_price">
+                    {{? it[i].price !== null}}
+                    ¥<span class="c_red">{{=it[i].price.toFixed(2)}}</span>
+                    {{??}}
+                    <span class="c_red">待议价</span>
+                    {{?}}
+                </p>
+            </a>
+        </li>
+        {{}}}
+    </script>
+    <script src="../content/js/commom.js"></script>
+    <script src="../content/js/util.js"></script>
+    <script src="../content/js/template/header.js"></script>
+    <script src="../content/js/template/foot.js"></script>
+    <script src="../content/js/index.js"></script>
+    <script src="../content/js/lib/mock-min.js"></script>
+    <script src="../config.js"></script>
+    <script>
+    var page
+    $(function() {
+        templates.header.render({
+            el: '.m-header',
+            search: function (data) {
+                // 页头点击搜索按钮调用方法
+                console.log(data)
+            }
+        })
+
+        templates.footer.render({
+            el: '.newfoot'
+        })
+
+
+
+        function Page() {
+            this.searchData = {}
+            this.pageNo = 1;
+            this.pageSize = 24;
+            this.totalPage = 1
+            this.init()
+        }
+
+        Page.prototype = {
+            init: function() {
+
+                this.renderNavTable()
+                this.getListFromServer()
+                this.getTotalPage()
+            },
+
+            renderNavTable: function() {
+                var data = {
+                    catTypes: ["01 化学原料", "02 颜料油漆", "03 化妆品", "04 燃料油脂", "05 医药", "06 五金金属", "07 机械设备", "08 手工器械", "09 电子电脑", "10 医疗器械", "11 家用电器", "12 运输工具", "13 军火烟火", "14 珠宝钟表", "15 乐器", "16 办公文具", "17 橡胶制品", "18 皮革箱包", "19 建筑材料", "20 家具", "21 厨房洁具", "22 绳网袋篷", "23 纺织纱线", "24 布料床单", "25 服装鞋帽", "26 花边配饰", "27 地毯席垫", "28 体育玩具", "29 食品", "30 小食配料", "31 水果花木", "32 啤酒饮料", "33 酒", "34 烟草烟具", "35 广告贸易", "36 金融物管", "37 建筑修理", "38 通讯传媒", "39 运输旅行", "40 材料加工", "41 教育娱乐", "42 技术服务", "43 餐饮酒店", "44 医疗园艺", "45 法律"],
+                    hotTypes: ['服装纺织', '食品饮料', '餐饮酒店', '化妆美容', '医药设备', '日常用品', '家居用具', 'IT互联网', '化工能源', '电子仪器', '机械制造', '建材五金'],
+                    fromby: ['持有人', '平台经纪', '代理'],
+                    tmTypes: ['中文', '英文', '图形', '中文+英文', '数字'],
+                    price: ['待议价', '1万以下', '1－5万', '5－10万', '10万以上']
+                }
+                var temptext = doT.template($('#J_nav_table_temp').html())
+                $('#J_nav_table_view').html(temptext(data))
+
+                this.addNavTableEvents()
+               
+            },
+
+            // 导航表添加点击事件
+            addNavTableEvents: function() {
+                var self = this;
+                var data = self.searchData
+
+                $('#J_cat_type').on('click', '.options', select)
+                $('#J_hot_type').on('click', '.options', select)
+                $('#J_formby').on('click', '.options', select)
+                $('#J_tm_type').on('click', '.options', select)
+                $('#J_price').on('click', '.options', select)
+                $('#J_words_view').on('click', select)
+
+                function select() {
+
+                    var $this = $(this);
+                    var type = $this.parent().data().type;
+                    if ($this.hasClass('options')) {
+                        if ($this.hasClass('active')) {
+                            $this.parent().children().removeClass('active')
+                            delete data[type]
+                        } else {
+                            $this.parent().children().removeClass('active');
+                            $this.addClass('active')
+                            data[type] = $this.addClass('active').text()
+
+                        }
+                    }
+
+
+                    data.words = $('#J_words').val()
+
+                    self.getListFromServer()
+                }
+
+
+
+                $('#J_clear_select').on('click', function() {
+                    $('#J_nav_table_view').find('.options').removeClass('active')
+                    data = {}
+                })
+
+            },
+           
+            // 获取列表数据
+            getListFromServer: function() {
+                var self = this;
+                var data = this.searchData
+                console.log(data)
+                configData.getTradeMarkList({
+                    data: data,
+                    success: function (data) {
+
+                        var temptext = doT.template($('#J_list_temp').html())
+                        $('#J_list_view').html(temptext(data.jsonBody))
+                        console.log(data)   
+                        self.getTotalPage(data.totalSize)
+                        // this.renderPaginator(data)
+                    }
+                })
+            },
+
+            // 获取总页数
+            getTotalPage: function (totalSize) {
+                console.log(totalSize)
+                var totalPages = Math.ceil((totalSize || 1) / this.pageSize);
+                if(totalPages !== this.totalPages){
+                    this.totalPages = totalPages
+                    this.renderPaginator()
+                }
+                
+                
+            },
+
+            // 分页器
+            renderPaginator: function () {
+                var self = this
+                var currentPage = this.pageNo;
+                var totalPages = this.totalPages;
+                $("#page").bootstrapPaginator({
+                    bootstrapMajorVersion: 3, //对应的bootstrap版本
+                    currentPage: currentPage, //当前页数
+                    numberOfPages: 10, //每次显示页数
+                    totalPages: totalPages, //总页数
+                    shouldShowPage: true, //是否显示该按钮
+                    useBootstrapTooltip: true,
+                    //点击事件
+                    onPageClicked: function(event, originalEvent, type, page) {
+                        self.pageNo = page;
+                        // console.log(originalEvent)
+                        // console.log(event)
+                        // console.log(page)
+                        // self.searchData.pageSize = page;
+                        self.getListFromServer()
+                    }
+                });
+            }
+        };
+
+        
+
+        page = new Page()
+    })
+    </script>
+</body>
+
+</html>

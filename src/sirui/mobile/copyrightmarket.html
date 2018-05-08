@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <title>司睿SlRUl知产交易平台</title>
+    <link rel="stylesheet" href="../m-content/lib/weiui/weui.css">
+    <link rel="stylesheet" href="../m-content/lib/jquery-wei/css/jquery-weui.min.css">
+    <link rel="stylesheet" href="../m-content/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../m-content/css/style.css">
+    <!-- <link rel="stylesheet" href="../m-content/script/global.js"> -->
+    <script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.3.2.js"></script>
+    <script src="../m-content/script/global.js"></script>
+    <script src="../m-content/lib/jquery/js/jquery.min.js"></script>
+    <script src="../m-content/lib/jquery-wei/js/jquery-weui.js"></script>
+    <script src="../m-content/lib/jquery-wei/js/swiper.js"></script>
+    <style>
+    	img{
+    		width: 100%;
+    	}
+    </style>
+</head>
+
+<body>
+	<div class="container" id="J_container">
+    <div id="J_copy_right_view">
+      
+    </div>
+
+	</div>
+   
+   <div class="g-footer">
+   	
+   </div>
+</body>
+<script type="text/x-dot-template" id="J_copy_right_temp">
+    <div class="meida-box">
+      {{for(var i=0; i<it.length; i++) {}}
+      <div class="media-item">
+        <a href="./copyrightdetail.html?id={{=it[i].id}}" class="media-img">
+          <img src="{{=it[i].imgsrc}}" alt="">
+          <span class="label">{{=it[i].copyrightType}}</span>
+        </a>
+        <div class="media-title">{{=it[i].name}}</div>
+        <div class="media-text">{{=it[i].copyrightOwner}}</div>
+        <div class="media-text">
+          <label>服务费：</label><span class="price">待议价</span>
+        </div>
+        <div class="media-text">
+          <a href="javascript:;" class="btn" onclick="chatQQ()">咨询代理</a>
+        </div>
+      </div>
+      {{} }}
+    </div>
+</script>
+<script src="../m-content/lib/mock/js/mock-min.js"></script>
+<script src="../config.js"></script>
+<script src="../m-content/lib/doT/js/doT.js"></script>
+<script src="../m-content/script/commom.js"></script>
+<script>
+
+$(function() {
+
+
+
+    commom.config({
+      isPullToRefresh: true, // 下拉刷新
+      pullToRefreshBox: '#J_container', // 下拉刷新滚动的dom
+      onRefresh: function () {
+        this.pullToRefreshDone()
+      },
+      isTopBtns: true, // 顶部按钮
+      TopBtnsListenEL : '#J_container' // 顶部按钮监听滚动的对象
+    })
+
+    var tmTemptext = doT.template($('#J_copy_right_temp').html())
+
+    configData.getCopyrightList({
+      success: function (data) {
+        console.log(data)
+        $('#J_copy_right_view').html(tmTemptext(data.jsonBody))
+      }
+    })
+   
+
+})
+</script>
+
+</html>

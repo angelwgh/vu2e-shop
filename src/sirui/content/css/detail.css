@@ -1,0 +1,9 @@
+.mark_header .table td{
+	border-top: none;
+	vertical-align: middle;
+}
+
+.btn.btn_icon_market:hover,
+.btn.btn_icon_market:focus{
+	color: #fff
+}

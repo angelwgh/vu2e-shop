@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <title>司睿SlRUl知产交易平台</title>
+    <link rel="stylesheet" href="../m-content/lib/weiui/weui.css">
+    <link rel="stylesheet" href="../m-content/lib/jquery-wei/css/jquery-weui.min.css">
+    <link rel="stylesheet" href="../m-content/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../m-content/css/style.css">
+    <!-- <link rel="stylesheet" href="../m-content/script/global.js"> -->
+    <script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.3.2.js"></script>
+    <script src="../m-content/script/global.js"></script>
+    <script src="../m-content/lib/jquery/js/jquery.min.js"></script>
+    <script src="../m-content/lib/jquery-wei/js/jquery-weui.js"></script>
+    <script src="../m-content/lib/jquery-wei/js/swiper.js"></script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div class="container" id="J_container">
+        <div id="J_copy_right_view">
+        </div>
+    </div>
+    <div class="g-footer">
+    </div>
+</body>
+<script type="text/x-dot-template" id="J_copy_right_temp">
+    <div class="weui-form-preview">
+        <div class="weui-form-preview__hd">
+            <div class="img">
+                <img src="{{=it.imgsrc}}" alt="">
+            </div>
+        </div>
+        <div class="weui-form-preview__hd">
+            <div class="title">{{=it.name}}</div>
+        </div>
+        <div class="weui-form-preview__hd">
+            <label class="weui-form-preview__label">价格：</label>
+            <em class="weui-form-preview__value price">¥2400.00</em>
+        </div>
+        <div class="weui-form-preview__bd">
+            <div class="weui-form-preview__item">
+                <label class="weui-form-preview__label">法律状态：</label>
+                <span class="weui-form-preview__value">{{=it.lawStatus}}</span>
+            </div>
+            <div class="weui-form-preview__item">
+                <label class="weui-form-preview__label">登记日期：</label>
+                <span class="weui-form-preview__value">{{=it.makeDate}}</span>
+            </div>
+            <div class="weui-form-preview__item">
+                <label class="weui-form-preview__label">有效期至：</label>
+                <span class="weui-form-preview__value">{{=it.validDate}}</span>
+            </div>
+        </div>
+        <div class="weui-form-preview__bd">
+            <table border="0" cellspacing="0">
+                <tr>
+                    <td>版权类型：</td>
+                    <td>{{=it.copyrightType}}</td>
+                </tr>
+                <tr>
+                    <td>作品类型：</td>
+                    <td>{{=it.worksType}}</td>
+                </tr>
+                <tr>
+                    <td>著作权人：</td>
+                    <td>{{=it.copyrightOwner}}</td>
+                </tr>
+                <tr>
+                    <td>作者：</td>
+                    <td>{{=it.author}}</td>
+                </tr>
+                <tr>
+                    <td>作品完成日期：</td>
+                    <td>{{=it.complateDate}}</td>
+                </tr>
+                <tr>
+                    <td>创作完成地点：</td>
+                    <td>{{=it.complateAdress}}</td>
+                </tr>
+                <tr>
+                    <td>是否发表：</td>
+                    <td>{{=it.isPublish}}</td>
+                </tr>
+                <tr>
+                    <td>发表时间：</td>
+                    <td>{{=it.publishDate}}</td>
+                </tr>
+                <tr>
+                    <td>备注：</td>
+                    <td>{{=it.doc}}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="weui-form-preview__bd">
+            <div class="table-title">版权交易流程</div>
+            <div class="weui-grids market-step">
+                <div class="weui-grid js_grid">
+                    <div class="market-step-icon">
+                        <div class="step step1"></div>
+                    </div>
+                    <p class="weui-grid__label" style="white-space: pre-wrap;">
+                        挑选版权提交委托
+                    </p>
+                </div>
+                <div class="weui-grid js_grid">
+                    <div class="market-step-icon">
+                        <div class="step step2"></div>
+                    </div>
+                    <p class="weui-grid__label" style="white-space: pre-wrap;">
+                        评估风险介入谈判
+                    </p>
+                </div>
+                <div class="weui-grid js_grid">
+                    <div class="market-step-icon">
+                        <div class="step step3"></div>
+                    </div>
+                    <p class="weui-grid__label" style="white-space: pre-wrap;">
+                        确认交易支付定金
+                    </p>
+                </div>
+                <div class="weui-grid js_grid">
+                    <div class="market-step-icon">
+                        <div class="step step4"></div>
+                    </div>
+                    <p class="weui-grid__label" style="white-space: pre-wrap;">
+                        联系卖家公证准备转让材料
+                    </p>
+                </div>
+                <div class="weui-grid js_grid">
+                    <div class="market-step-icon">
+                        <div class="step step5"></div>
+                    </div>
+                    <p class="weui-grid__label" style="white-space: pre-wrap;">
+                        支付尾款
+                    </p>
+                </div>
+                <div class="weui-grid js_grid">
+                    <div class="market-step-icon">
+                        <div class="step step6"></div>
+                    </div>
+                    <p class="weui-grid__label" style="white-space: pre-wrap;">
+                        提交商标局
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="weui-form-preview__bd">
+            <div class="table-title">交易所需材料</div>
+            <table border="0" cellspacing="0" class="materials">
+                <tr>
+                    <td></td>
+                    <td>企业</td>
+                    <td>个体</td>
+                </tr>
+                <tr>
+                    <td class="color01">买家</td>
+                    <td>
+                        <p>转让协议</p>
+                        <p>营业执照复印件盖章</p>
+                    </td>
+                    <td>
+                        <p>转让协议</p>
+                        <p>身份证正反面复印件签字</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="color03">卖家</td>
+                    <td>
+                        <p>转让协议（同买方）</p>
+                        <p>营业执照复印件盖章</p>
+                        <p>证书及作品（盖了版权局章的原件）给到买方的</p>
+                        <p>作品（版权局留档）</p>
+                    </td>
+                    <td>
+                        <p>转让协议（同买方）</p>
+                        <p>证书及作品（盖了版权局章的原件）给到买方的</p>
+                        <p>身份证正反面复印件签字</p>
+                        <p>作品（版权局留档）</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="color04">经纪</td>
+                    <td>
+                        <p>版权转让申请书</p>
+                        <p>版权转让委托书</p>
+                    </td>
+                    <td>
+                        <p>版权转让申请书</p>
+                        <p>版权转让委托书</p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</script>
+<script src="../m-content/lib/mock/js/mock-min.js"></script>
+<script src="../config.js"></script>
+<script src="../m-content/lib/doT/js/doT.js"></script>
+<script src="../m-content/script/util.js"></script>
+<script src="../m-content/script/commom.js"></script>
+<script>
+function Page() {
+    this.id = util.getUrlParam('id');
+
+    var p = this;
+
+    p.init = function() {
+        p.getDetail()
+    }
+
+    p.getDetail = function() {
+        configData.getDetail({
+            data: {
+                id: p.id,
+                type: 'copyright'
+            },
+            success: function(data) {
+                p.renderView(data)
+            }
+        })
+    }
+
+
+    p.renderView = function(data) {
+        console.log(data)
+        var tmTemptext = doT.template($('#J_copy_right_temp').html())
+        $('#J_copy_right_view').html(tmTemptext(data.jsonBody[0]))
+    }
+
+    p.init()
+
+}
+
+
+
+
+$(function() {
+
+    commom.config({
+        isPullToRefresh: true, // 下拉刷新
+        pullToRefreshBox: '#J_container', // 下拉刷新滚动的dom
+        onRefresh: function() {
+            this.pullToRefreshDone()
+        },
+        isTopBtns: true, // 顶部按钮
+        TopBtnsListenEL: '#J_container' // 顶部按钮监听滚动的对象
+    })
+
+
+
+    var page = new Page()
+
+})
+</script>
+
+</html>
