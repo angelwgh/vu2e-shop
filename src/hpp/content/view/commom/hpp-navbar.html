@@ -1,0 +1,14 @@
+<div is="yd-navbar" slot="navbar"
+	 v-bind:title="title"
+	 v-bind:bgcolor="bgcolor"
+	 v-bind:color="color">
+	<div slot="left" v-bind:style="{color: color}" 			 v-on:click="back">
+		<div is="yd-navbar-back-icon" :color="color">返回</div>
+	</div>
+	<div v-if="rightShow"
+		 slot="right" 
+		 v-bind:style="{color: color}"
+		 v-on:click="rightBtn">
+		<i :class="[rightIcon]" style="font-size: 20px;"></i>
+	</div>		   	
+</div>

@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+	<title>自定义模板</title>
+	<link rel="stylesheet" href="../../content/lib/vue-ydui/dist/ydui.px.css">
+	<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+	<link rel="stylesheet" href="../../content/style/fonts/iconfont.css">
+	<!-- <link rel="stylesheet" href="//unpkg.com/vue-ydui/dist/ydui.px.css"> -->
+	<link rel="stylesheet" href="../../content/style/pages/panels/crops/croppa.css">
+	<link rel="stylesheet" href="../../content/style/commom.css">
+	<link rel="stylesheet" href="../../content/style/pages/panels/new_user_panel.css">
+	<link rel="stylesheet" href="../../content/style/pages/panels/editor/editor.css">
+	<style>
+	.main-btn{
+		    position: fixed;
+		    padding-top: 15px;
+		    bottom: 0;
+		    width: 100%;
+		    height: 80px;
+		    text-align: center;
+		    z-index: 9;
+		    border-top: 1px solid #ccc;
+		    background-color: #fff;
+	}
+		.main-btn button{
+			margin: 0 10px;
+			width: 100px;
+		    height: 45px;
+		    line-height: 45px;
+		    font-size: 20px;
+		    color: #fff;
+		    border: none;
+		    border-radius: 1000px;
+		    background-color: #ff6699;
+		}
+
+		.save-imgs{
+			width: 100%;
+			position: fixed;
+			top: 0;
+			bottom: 0;
+			background-color: #fff;
+		}
+
+		.select-items{
+			justify-content: center;
+			margin-top: 80px;
+		}
+
+		.select-items .item{
+			margin: 0 6px;
+			line-height: 20px;
+			font-size: 15px;
+			color: #574541;
+		}
+
+		.select-items .item span{
+			margin-right: 5px;
+			position: relative;
+			display: inline-block;
+			width: 20px;
+			height: 20px;
+			vertical-align: middle;
+			border-radius: 50%;
+
+			border: 1px solid #574541;
+		}
+		.select-items .item span::before{
+			content: '';
+			position: absolute;
+			margin-top: -4px;
+			margin-left: -4px;
+			top: 50%;
+			left: 50%;
+			width: 8px;
+			height: 8px;
+			border-radius: 50%;
+			background-color: #574541;
+		}
+
+		.select-items .item.active span::before{
+			background-color: #f00;
+		}
+
+		.save-imgs .btn {
+			margin-top: 60px;
+			text-align: center;
+		}
+
+		.save-imgs .btn button{
+			width: 70%;
+			text-align: center;
+			height: 50px;
+			line-height: 50px;
+			font-size: 20px;
+			color: #fff;
+			border: none;
+			border-radius: 1000px;
+			background-color: #ff6699;
+
+		}
+		
+	/*	.save-imgs .save-img-item{
+			font-size: 0;
+		}
+		.save-imgs img{
+			width: 100%;
+		}*/
+	</style>
+</head>
+<body>
+	<div id="app">
+		<!-- <div is="yd-layout"> -->
+			<div v-bind:style="{
+					paddingTop: headTop,
+					backgroundColor: headTopColor
+				}"
+				 slot="navbar">
+				<div is="yd-navbar" slot="navbar"
+						   v-bind:title="title"
+						   v-bind:bgcolor="headStyle.bgcolor"
+						   v-bind:color="headStyle.color">
+					<div slot="left" v-bind:style="{color: headStyle.color}" 			 v-on:click="back">
+						<div is="yd-navbar-back-icon" :color="headStyle.color">返回</div>
+					</div>	   	
+				</div>
+				
+			</div>
+			
+				<div class="containt" >
+					<div is="v-edit"
+						id="scroller"
+						ref="editor"
+						v-bind:editor-data="editData"
+						v-bind:win-width="winWidth"></div>
+					<div class="main-btn">
+						<button v-on:touchend="saveAsImg">整图保存</button>
+					</div>
+				</div>
+			<transition name="slide-left">
+				<div class="save-imgs" v-if="isSaveImgs">
+					<div v-bind:style="{
+						paddingTop: headTop,
+						backgroundColor: headTopColor
+					}"
+					 slot="navbar">
+						<div is="yd-navbar" slot="navbar"
+								   v-bind:title="'保存为图片'"
+								   v-bind:bgcolor="headStyle.bgcolor"
+								   v-bind:color="headStyle.color">
+							<div slot="left" :style="{color: headStyle.color}"
+								 v-on:click="closeSaveImgWin">
+								<div is="yd-navbar-back-icon" :color="headStyle.color">返回</div>
+							</div>
+		   	
+						</div>
+					
+					</div>
+					<div class="containt">
+						<div class="select-items flex" class="nav-box">
+							<div class="item" 
+								 v-bind:class="{active: saveImgsNum == 1}"
+								 v-on:click="setSaveImgsNum(1)">
+								<span class="icon"></span>保存为一张图片
+							</div>
+							<div class="item" 
+								 v-bind:class="{active: saveImgsNum == 3}"
+								 v-on:click="setSaveImgsNum(3)">
+								<span class="icon"></span>保存为三张图片
+							</div>
+						</div>
+						<div class="btn">
+							<button v-on:click="createdImg">整图保存到相册</button>
+						</div>
+						<div>
+							<div v-for="img in saveImgs">
+								<img v-bind:src="img" style="width: 100%">
+							</div>
+						</div>
+						<p style="text-align: center;color: #574541; font-size: 12px; margin-top: 20px">整图保存时可保存为一张图片或三张图片</p>
+					</div>
+				<!-- </div> -->
+				</div>
+			</transition>
+		
+	</div>
+	<script src="../../content/lib/vue/dist/vue.js"></script>
+	<script src="../../content/lib/vue-ydui/dist/ydui.px.js"></script>
+	<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+	<script src="../../content/lib/alloyfinger/alloy_finger.js"></script>
+	<script src="../../content/lib/alloyfinger/vue/alloy_finger.vue.js"></script>
+	<script src="../../content/lib/html2canvas/html2canvas.min.js"></script>
+	<script type="text/javascript" src="../../content/lib/alloytouch/alloy_touch.js"></script>
+	<script type="text/javascript" src="../../content/lib/alloytouch/transformjs/transform.js"></script>
+	<script type="text/javascript" src="../../content/lib/alloytouch/vue/alloy_touch.vue.js"></script>
+	<script src="../../content/js/util.js"></script>
+	<script src="../../content/js/golbal.js"></script>
+	<script src="../../content/js/editor/colorPicker.js"></script>
+	<!-- <script src="../../content/js/editor/el-color-picker.js"></script> -->
+	<script src="../../content/js/editor/croppa.js"></script>
+	<script src="../../content/js/editor/editFocusWrap.js"></script>
+	<script src="../../content/js/editor/imgContainer.js"></script>
+	<script src="../../content/js/editor/imgStyle.js"></script>
+	<script src="../../content/js/editor/functionBar.js"></script>
+	<script src="../../content/js/editor/selectImg.js"></script>
+	<script src="../../content/js/editor/seletVideo.js"></script>
+	<script src="../../content/js/editor/addTo.js"></script>
+	<script src="../../content/js/editor/editor.js"></script>
+
+	<!--  -->
+	<!-- <script src="//unpkg.com/vue-ydui/dist/ydui.px.js"></script> -->
+	<script>
+		// var page;
+		// console.log(editor);
+		;(function (root, factory) {
+			root.page = factory(root)
+		})(this, function (root) {
+			// console.log(root)
+			// console.log(util.isDom())
+			// Vue.use(vueAlloyTouch);
+
+			// 把dataUrl数据转成Blob对象
+			function dataURLtoBlob(dataurl) {
+			    var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+			        bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+			    while(n--){
+			        u8arr[n] = bstr.charCodeAt(n);
+			    }
+			    return new Blob([u8arr], {type:mime});
+			}
+
+
+			function SaveImg(canvas, num) {
+				this._canvas = canvas;
+				this.width = canvas.width;
+				this.height = canvas.height;
+				this._num = num || 1;
+				this.imgArr = []
+				this._init()
+			}
+
+			SaveImg.prototype = {
+				_init: function () {
+					console.dir(this._canvas)
+					this.imageData = this._canvas.toDataURL()
+					this.creatImgs()
+
+					console.log(this.imgArr)
+				},
+
+				creatImgs: function () {
+					var height = this.height / this._num;
+					var sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight;
+
+					sx = dx = dy = 0;
+					sWidth = dWidth = this.width;
+					dHeight = sHeight = height
+
+					for(var i = 0; i < this._num; i++){
+						var canvas = document.createElement('canvas');
+						var ctx = canvas.getContext("2d");
+						console.log(ctx)
+						canvas.width = this.width;
+						canvas.height = height;
+						sy = height * i;
+						ctx.drawImage(this._canvas, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight )
+
+						this.imgArr.push(canvas.toDataURL())
+					}
+				},
+
+
+			}
+			Vue.use(vueAlloyTouch);
+			var app = new Vue({
+				el:'#app',
+				data: {
+					headTop: golbal.headTop,
+					headTopColor: golbal.headTopColor,
+					headStyle: {
+						bgcolor: golbal.headStyle.bgColor,
+						color: golbal.headStyle.color
+					},
+					title:'嗨披模板',
+					editData:{},
+					winWidth:0,
+					saveImgs:[],
+					isSaveImgs: false,
+					saveImgsNum: 1
+					
+				},
+
+				methods: {
+					init(){
+						this.editData = golbal.hpEditorData
+						this.winWidth = util.width()
+						// console.log(golbal.editorData)
+						this.initAlloyTouch()
+					},
+					initAlloyTouch(handle){
+	                    // console.log(handle)
+	                    this.handleAlloyTouch = handle
+	                },
+					back:function () {
+						window.history.go(-1)
+					},
+					openFunctionBar: function () {
+						// console.log('打开功能栏')
+						// console.log(this.$refs.editor)
+						this.$refs.editor.openFunctionBar()
+					},
+
+					addModule: function () {
+						this.$refs.editor.addModule()
+					},
+
+					setSaveImgsNum: function (num) {
+						this.saveImgsNum = num
+						// console.log(num)
+					},
+
+					saveAsImg: function () {
+						this.isSaveImgs = true;
+						this.$refs.editor.hideShowBorder()
+					},
+					closeSaveImgWin: function () {
+						this.isSaveImgs = false;
+						this.$refs.editor.showBorder = true;
+					},
+					createdImg: function () {
+						this.$dialog.loading.open('生成图片');
+						this.saveImgs = [];
+						this.$refs.editor.moduleIndex = -1; // 当前模块的序号
+						this.$refs.editor.editorIndex= -1;
+						// return
+						var vm = this
+						var el = document.getElementById('J_detail_content')
+						console.log(this.$refs.editor.$el)
+						html2canvas(el).then(function (canvas) {
+							// console.log(canvas.toDataURL())
+							// document.body.appendChild(canvas)
+							var saveImg = new SaveImg(canvas, vm.saveImgsNum)
+							vm.$dialog.loading.close();
+							console.log(saveImg,3)
+							// var canvas2 = canvas.getContext("2d").getImageData(0, 0, 100, 100)
+							var image = new Image()
+							image.src = saveImg.imgArr[0]
+
+							var a = document.createElement('a')
+							a.href = image.src;
+							a.download = 'a.jpg'
+							document.body.appendChild(a)
+							a.click()
+							document.body.removeChild(a)
+							vm.saveImgs = saveImg.imgArr
+
+
+						})
+					},
+
+					uploadImgs: function (blob) {
+						var fd = new FormData();
+						fd.append("image", blob, "image.png");
+						console.log(fd.get("image"))
+					},
+					// linkto: function (target) {
+					// 	var href = window.location.href.replace(/[\w-_]+\.html$/, '');
+					// 	window.location.href= href + target
+					// }
+
+					/**
+					* 上传视频
+					*/
+					uploadVideo: function (callback) {
+						// console.log('u')
+						// 上传视频
+						var src='../../content/videos/VID_20180406_160709.mp4'
+						if(typeof callback === 'function'){
+							callback(src)
+						}
+					}
+				},
+
+				created: function () {
+					this.init()
+
+				},
+				mounted () {
+					
+					this.$nextTick(function () {
+						this.$el.className = "show"
+						// document.getElementById('scrollView').style.overflowY = 'hidden'
+						
+
+						// console.log(this.alloyTouchData)
+					})
+				}
+			})
+		})
+	</script>
+</body>
+</html>

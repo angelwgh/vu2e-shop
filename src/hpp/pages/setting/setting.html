@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+	<title>设置</title>
+	<link rel="stylesheet" href="../../content/lib/vue-ydui/dist/ydui.px.css">
+	<link rel="stylesheet" href="../../content/style/fonts/iconfont.css">
+	<!-- <link rel="stylesheet" href="//unpkg.com/vue-ydui/dist/ydui.px.css"> -->
+	<link rel="stylesheet" href="../../content/style/commom.css">
+	<link rel="stylesheet" href="../../content/style/pages/setting/setting.css">
+	<style>
+		
+	</style>
+</head>
+<body>
+	<div id="app">
+		<div is="yd-layout" >
+			<div :style="{
+					paddingTop: headTop,
+					backgroundColor: headTopColor
+				}"
+				 slot="navbar">
+				<div is="yd-navbar" slot="navbar"
+						   :title="title"
+						   :bgcolor="headStyle.bgcolor"
+						   :color="headStyle.color">
+					<div slot="left" :style="{color: headStyle.color}" >
+						<div is="yd-navbar-back-icon" :color="headStyle.color"
+							v-on:click.native="back">返回</div>
+					</div>
+					<div slot="right" :style="{color: headStyle.color}">
+						<!-- <i class="iconfont icon-jia" v-on:click="openFeatures"></i> -->
+					</div>		   	
+				</div>
+				
+			</div>
+			<div class="containt">
+					<div class="advert">
+						<img :src="advert.img.src">
+					</div>
+					<div class="ment-list">
+						<div is="yd-cell-group">
+				            <div is="yd-cell-item" v-on:click.native="linkto('account.html')">
+				                <span slot="left">账号管理</span>
+				                <span slot="right"><i class="iconfont icon-right-arrow"></i></span>
+				            </div>
+				            <div is="yd-cell-item" v-on:click.native="linkto('cardbage/my_card_bages.html')">
+				                <span slot="left">我的券包</span>
+				                <span slot="right"><i class="iconfont icon-right-arrow"></i></span>
+				            </div>
+				            <div is="yd-cell-item" v-on:click.native="linkto('add_member.html')">
+				                <span slot="left">申请会员</span>
+				                <span slot="right"><i class="iconfont icon-right-arrow"></i></span>
+				            </div>
+				        </div>
+					</div>
+					<div class="title-middle">
+						其他设置
+					</div>
+					<div class="ment-list">
+						<div is="yd-cell-group">
+				            <div is="yd-cell-item">
+				                <span slot="left">嗨披详情声明</span>
+				                <span slot="right"><i class="iconfont icon-right-arrow"></i></span>
+				            </div>
+				            <div is="yd-cell-item">
+				                <span slot="left">嗨披详情介绍</span>
+				                <span slot="right"><i class="iconfont icon-right-arrow"></i></span>
+				            </div>
+				            <div is="yd-cell-item">
+				                <span slot="left">嗨披详情课程</span>
+				                <span slot="right"><i class="iconfont icon-right-arrow"></i></span>
+				            </div>
+				            <div is="yd-cell-item">
+				                <span slot="left">购买嗨披广告</span>
+				                <span slot="right"><i class="iconfont icon-right-arrow"></i></span>
+				            </div>
+				        </div>
+					</div>
+			</div>
+		</div>
+		
+	</div>
+	<script src="../../content/lib/vue/dist/vue.js"></script>
+	<script src="../../content/lib/vue-ydui/dist/ydui.px.js"></script>
+<!-- 	<script type="text/javascript" src="../../content/lib/alloytouch/alloy_touch.js"></script>
+	<script type="text/javascript" src="../../content/lib/alloytouch/transformjs/transform.js"></script>
+	<script type="text/javascript" src="../../content/lib/alloytouch/vue/alloy_touch.vue.js"></script> -->
+	<script src="../../content/js/util.js"></script>
+	<script src="../../content/js/golbal.js"></script>
+	<!--  -->
+	<!-- <script src="//unpkg.com/vue-ydui/dist/ydui.px.js"></script> -->
+	<script>
+		// var page;
+		// console.log(util)
+		(function (root, factory) {
+			root.page = factory(root)
+		})(this, function (root) {
+			// console.log(root)
+			console.log(util.isDom())
+			// Vue.use(vueAlloyTouch);
+			var app = new Vue({
+				el:'#app',
+				data: {
+					headTop: golbal.headTop,
+					headTopColor: golbal.headTopColor,
+					headStyle: {
+						bgcolor: golbal.headStyle.bgColor,
+						color: golbal.headStyle.color
+					},
+					title:'嗨披设置',
+					advert: {
+						img:{
+							src: '../../content/images/advert.jpg'
+						}
+					}
+				},
+
+				methods: {
+					back:function () {
+						window.history.go(-1)
+					},
+
+					linkto: function (target) {
+						console.log(111)
+						var href = window.location.href.replace(/[\w-_]+\.html$/, '');
+						window.location.href= href + target
+					},
+					touchmove: function (event) {
+						console.log(event)
+						event.preventDefault()
+					}
+				},
+
+				mounted: function () {
+					this.$nextTick(function () {
+						this.$el.className = "show"
+					})
+				}
+			})
+		})
+	</script>
+</body>
+</html>

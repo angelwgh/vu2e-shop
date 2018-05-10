@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+	<title>账号管理</title>
+	<link rel="stylesheet" href="../../content/lib/vue-ydui/dist/ydui.px.css">
+	<link rel="stylesheet" href="../../content/style/fonts/iconfont.css">
+	<!-- <link rel="stylesheet" href="//unpkg.com/vue-ydui/dist/ydui.px.css"> -->
+	<link rel="stylesheet" href="../../content/style/commom.css">
+	<link rel="stylesheet" href="../../content/style/pages/setting/account_set.css">
+	<style>
+
+	</style>
+</head>
+<body>
+	<div id="app">
+		<div is="yd-layout">
+			<div :style="{
+					paddingTop: headTop,
+					backgroundColor: headTopColor
+				}"
+				 slot="navbar">
+				<div is="yd-navbar" slot="navbar"
+						   v-bind:title="title"
+						   v-bind:bgcolor="headStyle.bgcolor"
+						   v-bind:color="headStyle.color">
+					<div slot="left" 
+						 v-on:click="back"
+						 v-bind:style="{color: headStyle.color}" >
+						<div  is="yd-navbar-back-icon" :color="headStyle.color"
+							>返回</div>
+					</div>
+					<div slot="right" :style="{color: headStyle.color}">
+						<!-- <i class="iconfont icon-jia" v-finger:tap="openFeatures"></i> -->
+					</div>		   	
+				</div>
+				
+			</div>
+			<div class="containt">
+				<div class="m-account-set">
+					<div class="bar1 flex">
+						<div class="icon-top icon-top1"
+							v-bind:style="{
+								backgroundPosition:iconPosition
+							}"></div>
+						<div class="icon-top icon-top2"></div>
+						<div class="icon-top icon-top3"></div>
+					</div>
+
+					<div class="bar2">
+						<div is="yd-cell-item">
+							<span slot="icon" class="head-img"></span>
+			                <span slot="left">YOUMEGO林子塍</span>
+			                <span slot="right" v-on:click="linkto('account_switch.html')">切换账号</span>
+			            </div>
+					</div>
+					<div class="bar3">
+						<div is="yd-button">确认</div>
+					</div>
+					<div class="bar4">
+						<p>该应用将访问你的公开资料，好友信息。</p>
+						<p>更多权限：</p>
+						<div is="yd-checkbox" color="#fff">关注嗨披详情公众号</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	<script src="../../content/lib/vue/dist/vue.js"></script>
+	<script src="../../content/lib/vue-ydui/dist/ydui.px.js"></script>
+<!-- 	<script type="text/javascript" src="../../content/lib/alloytouch/alloy_touch.js"></script>
+	<script type="text/javascript" src="../../content/lib/alloytouch/transformjs/transform.js"></script>
+	<script type="text/javascript" src="../../content/lib/alloytouch/vue/alloy_touch.vue.js"></script> -->
+	<script src="../../content/js/util.js"></script>
+	<script src="../../content/js/golbal.js"></script>
+	<!--  -->
+	<!-- <script src="//unpkg.com/vue-ydui/dist/ydui.px.js"></script> -->
+	<script>
+		// var page;
+		// console.log(util)
+		(function (root, factory) {
+			root.page = factory(root)
+		})(this, function (root) {
+			// console.log(root)
+			console.log(window.location)
+			// Vue.use(vueAlloyTouch);
+			var app = new Vue({
+				el:'#app',
+				data: {
+					headTop: golbal.headTop,
+					headTopColor: golbal.headTopColor,
+					headStyle: {
+						bgcolor: golbal.headStyle.bgColor,
+						color: golbal.headStyle.color
+					},
+					title:'账号管理',
+					advert: {
+						img:{
+							src: '../../content/images/advert.jpg'
+						}
+					}
+				},
+				computed:{
+					iconPosition(){
+						var search = util.parseSearch(window.location.search)
+						let result;
+						if(search.target ==='wb'){
+							result = '0 -320px'
+						}else if(search.target === 'wx' || !search.target){
+							result = '0 -370px'
+						}
+						return result
+					},
+				},
+				
+
+				methods: {
+					back: function() {
+						window.history.go(-1)
+					},
+					linkto : function (target) {
+						// var href = window.location.href;
+						var pathname = window.location.pathname
+						var origin = window.location.origin
+						pathname = pathname.replace(/[\w-_]+\.html$/, '')
+						window.location.href= origin + pathname + target
+					}
+				},
+
+				mounted: function () {
+					this.$nextTick(function () {
+						this.$el.className = "show"
+					})
+
+					// console.log(search)
+				}
+				
+			})
+		})
+	</script>
+</body>
+</html>

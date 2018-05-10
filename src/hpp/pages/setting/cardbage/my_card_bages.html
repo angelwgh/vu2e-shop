@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+	<title>设置</title>
+	<link rel="stylesheet" href="../../../content/lib/vue-ydui/dist/ydui.px.css">
+	<link rel="stylesheet" href="../../../content/style/fonts/iconfont.css">
+	<!-- <link rel="stylesheet" href="//unpkg.com/vue-ydui/dist/ydui.px.css"> -->
+	<link rel="stylesheet" href="../../../content/style/commom.css">
+	<link rel="stylesheet" href="../../../content/style/pages/setting/cardbage/my_card_bages.css">
+	<style>
+
+	</style>
+</head>
+<body>
+	<div id="app">
+		<div is="yd-layout">
+			<div :style="{
+					paddingTop: headTop,
+					backgroundColor: headTopColor
+				}"
+				 slot="navbar">
+				<div is="yd-navbar" slot="navbar"
+						   :title="title"
+						   :bgcolor="headStyle.bgcolor"
+						   :color="headStyle.color">
+					<div slot="left" :style="{color: headStyle.color}" 
+						 v-on:click="back">
+						<div is="yd-navbar-back-icon" :color="headStyle.color"
+							>返回</div >
+					</div>
+					<div slot="right" :style="{color: headStyle.color}">
+						<!-- <i class="iconfont icon-jia" v-finger:tap="openFeatures"></i> -->
+					</div>		   	
+				</div>
+				
+			</div>
+			<div class="advert">
+				<img src="../../../content/images/slide1.jpg" alt="">
+			</div>
+			<div class="containt">
+				<div is="yd-cell-item" class="info-bar">
+					<div slot="left" class="icon-img">
+						<div class="icon-img"></div>
+					</div>
+					<div slot="left" class="text">
+						<p>新注册的会员名称<span>普通会员</span></p>
+						<p>VIP.2019.3.9到期</p>
+					</div>
+	                <span slot="right">
+	                	<span style="color:#C6C8C9">升级到VIP用户</span>
+	            	</span>
+	            </div>
+
+	            <div is="yd-cell-item" class="title">
+					<div slot="left" >
+						我的免费券
+					</div>
+	                <span slot="right">
+	                	({{showCoupenNum}}张) <i class="el-icon-arrow-down"></i>
+	            	</span>
+	            </div>
+	            <div class="tips" style="font-size:13px;padding: 5px 0; text-align: center;">
+	            	<i class="iconfont icon-laba"></i>转赠给好友让他不再为详情页设计而忧
+	            </div>
+	            <div class="coupons-group flex">
+	            	<div class="coupon-item" 
+	            		 v-for="item in showCoupens"
+	            		 v-on:click="select(item)">
+	            		<div class="coupen-detail"
+	            			 v-bind:class="{active:currentCoupensId == item.id}">
+	            			<img :src="src" alt="">
+	            			<img v-if="item.checked" :src="checkedSrc" alt="" class="checked">
+	            		</div>
+	            	</div>
+	            	
+	            	<div class="coupon-item" 
+	            		 v-if="showLen !== showCoupenNum"
+	            		 v-on:click="loadMore"
+	            		 >
+	            		<div class="coupen-detail">
+	            			<img src="../../../content/images/card_bage/add.png" alt="">
+	            		</div>
+	            	</div>
+	            </div>
+				<div class="confirm" v-on:click="confirm">
+					<button>转赠好友</button>
+				</div>
+	           
+			</div>
+		</div>
+		
+	</div>
+	<script src="../../../content/lib/vue/dist/vue.js"></script>
+	<script src="../../../content/lib/vue-ydui/dist/ydui.px.js"></script>
+<!-- 	<script type="text/javascript" src="../../../content/lib/alloytouch/alloy_touch.js"></script>
+	<script type="text/javascript" src="../../../content/lib/alloytouch/transformjs/transform.js"></script>
+	<script type="text/javascript" src="../../../content/lib/alloytouch/vue/alloy_touch.vue.js"></script> -->
+	<script src="../../../content/js/util.js"></script>
+	<script src="../../../content/js/golbal.js"></script>
+	<!--  -->
+	<!-- <script src="//unpkg.com/vue-ydui/dist/ydui.px.js"></script> -->
+	<script>
+		// var page;
+		// console.log(util)
+		(function (root, factory) {
+			root.page = factory(root)
+		})(this, function (root) {
+			// console.log(root)
+			console.log(util.isDom())
+			// Vue.use(vueAlloyTouch);
+			var app = new Vue({
+				el:'#app',
+				data: {
+					headTop: golbal.headTop,
+					headTopColor: golbal.headTopColor,
+					headStyle: {
+						bgcolor: golbal.headStyle.bgColor,
+						color: golbal.headStyle.color
+					},
+					title:'我的券包',
+					src:'../../../content/images/card_bage/free.png',
+					checkedSrc:'../../../content/images/card_bage/checked.png',
+					headStyle:{
+						color: '#fff',
+						bgcolor: '#000'
+					},
+					title:'我的券包',
+					checkedNames:[],
+					coupens:[],
+					showLen: 10,
+					currentCoupensId:-1
+				},
+
+				computed:{
+					showCoupens: function() {
+						var arr = [];
+						var coupens = this.coupens
+						for(let i = 0; i < this.showLen; i++){
+
+							arr.push(coupens[i])
+						}
+
+						return arr
+					},
+					showCoupenNum: function (){
+						// 优惠券数目
+						return this.coupens.length;
+					}
+				},
+
+				methods: {
+					back:function () {
+						window.history.go(-1)
+					},
+
+					linkto: function (target) {
+						var href = window.location.href.replace(/[\w-_]+\.html$/, '');
+						window.location.href= href + target
+					},
+
+					select: function (coupen) {
+						// 选择免费券
+						console.log(coupen)
+						this.currentCoupensId = coupen.id
+						coupen.checked = !coupen.checked
+						// console.log(coupen)
+					},
+					loadMore: function() {
+						const coupens = this.coupens;
+						const result = [];
+						coupens.forEach((item)=>{
+							// console.log(item)
+							if(item.checked){
+								result.push(item)
+							}
+						})
+						this.showLen =  this.showLen + 10 > coupens.length ? coupens.length : this.showLen + 10
+					},
+					confirm: function() {
+						var href = window.location.href.replace(/[\w-_]+\.html$/, '');
+						window.location.href= href + 'my_card_send.html'
+					},
+
+					getCoupens: function(){
+						const coupens = this.coupens
+						for(let i = 0; i < 56; i++){
+							this.coupens.push({
+								id:i,
+								checked: false
+							})
+						}
+						// this.coupens
+					}
+				},
+
+				created: function () {
+					this.getCoupens()
+				},
+
+				mounted () {
+					this.$nextTick(function () {
+						this.$el.className = "show"
+					})
+				}
+			})
+		})
+	</script>
+</body>
+</html>

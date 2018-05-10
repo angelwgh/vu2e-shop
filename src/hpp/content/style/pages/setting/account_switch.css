@@ -1,0 +1,84 @@
+.ment-list{
+	padding: 0 15px;
+
+	
+}
+
+.ment-list{
+	padding: 0 15px;
+
+	
+}
+
+
+
+.yd-cell .yd-cell-icon span{
+		display: block;
+		width: 40px;
+		height: 40px;
+		transform: scale(0.7);
+		background-image: url(../../../images/icon.png);
+}
+.yd-cell .yd-cell-icon span.qq{
+			background-position: -160px 0;
+		}
+
+.yd-cell .yd-cell-icon span.wx{
+			background-position: -110px 0;
+		}
+
+.yd-cell .yd-cell-icon span.wb{
+			background-position: -60px 0;
+		}
+
+.yd-cell .yd-cell-icon span.tel{
+			background-position: -210px -65px;
+		}
+
+
+.yd-cell .icon-right-arrow{
+		display: block;
+		width: 14px;
+		height: 25px;
+		line-height: 25px;
+		font-size: 20px;
+	}
+.yd-cell .yd-cell-item{
+		padding: 0;
+}
+
+.yd-cell .yd-cell-item .yd-cell-right .yd-btn{
+			
+				height: auto;
+				font-size: 16px;
+
+		}
+.yd-cell .yd-cell-item :not(:last-child):after{
+	margin-left: 0;
+	border-bottom: dashed 1px #BBBCBC;
+}
+
+
+.yd-cell:after{
+		border-bottom: dashed 1px #BBBCBC;
+	}
+
+
+
+.bottom-menu .yd-actionsheet-item{
+	border-bottom: 1px solid #ccc;
+}
+
+
+
+.bottom-menu	.yd-actionsheet-item{
+				border-bottom: 1px solid #ccc;
+			}
+
+.ment-list	.yd-cell-left{
+	font-size: 18px;
+}
+
+.ment-list	.yd-cell-right{
+	font-size: 16px;
+}

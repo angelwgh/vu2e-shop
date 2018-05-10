@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+	<title>设置</title>
+	<link rel="stylesheet" href="../../content/lib/vue-ydui/dist/ydui.px.css">
+	<link rel="stylesheet" href="../../content/style/fonts/iconfont.css">
+	<!-- <link rel="stylesheet" href="//unpkg.com/vue-ydui/dist/ydui.px.css"> -->
+	<link rel="stylesheet" href="../../content/style/commom.css">
+	<link rel="stylesheet" href="../../content/style/pages/share/share_to.css">
+	<style>
+
+	</style>
+</head>
+<body>
+	<div id="app" :style="{opacity: loaded ? 1 : 0}">
+		<div class="yd-layout">
+			<div :style="{
+					paddingTop: headTop,
+					backgroundColor: headTopColor
+				}"
+				 slot="navbar">
+				<div is="yd-navbar" slot="navbar"
+						   :title="title"
+						   :bgcolor="headStyle.bgcolor"
+						   :color="headStyle.color">
+					<div slot="left" :style="{color: headStyle.color}" 
+						 v-on:click="back">
+						<div is="yd-navbar-back-icon" :color="headStyle.color"
+							>返回</div>
+					</div>
+					<div slot="right" :style="{color: headStyle.color}">
+						<!-- <i class="iconfont icon-jia" v-finger:tap="openFeatures"></i> -->
+					</div>		   	
+				</div>
+				
+			</div>
+			<div class="containt">
+				<div class="icons-group flex">
+					<div class="icon-item ">
+						<div class="icon wx"></div>
+						<div class="text">微好友</div>
+					</div>
+					<div class="icon-item">
+						<div class="icon py"></div>
+						<div class="text">朋友圈</div>
+					</div>
+				</div>
+				<div class="btns">
+					<button class="primary">马上分享</button>
+					<!-- <button></button> -->
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	<script src="../../content/lib/vue/dist/vue.js"></script>
+	<script src="../../content/lib/vue-ydui/dist/ydui.px.js"></script>
+<!-- 	<script type="text/javascript" src="../../content/lib/alloytouch/alloy_touch.js"></script>
+	<script type="text/javascript" src="../../content/lib/alloytouch/transformjs/transform.js"></script>
+	<script type="text/javascript" src="../../content/lib/alloytouch/vue/alloy_touch.vue.js"></script> -->
+	<script src="../../content/js/util.js"></script>
+	<script src="../../content/js/golbal.js"></script>
+	<!--  -->
+	<!-- <script src="//unpkg.com/vue-ydui/dist/ydui.px.js"></script> -->
+	<script>
+		// var page;
+		// console.log(util)
+		(function (root, factory) {
+			root.page = factory(root)
+		})(this, function (root) {
+			// console.log(root)
+			console.log(util.isDom())
+			// Vue.use(vueAlloyTouch);
+			var app = new Vue({
+				el:'#app',
+				data: {
+					loaded: false,
+					headTop: golbal.headTop,
+					headTopColor: golbal.headTopColor,
+					headStyle: {
+						bgcolor: golbal.headStyle.bgColor,
+						color: golbal.headStyle.color
+					},
+					title:'选择分享',
+					advert: {
+						img:{
+							src: '../../content/images/advert.jpg'
+						}
+					}
+				},
+
+				methods: {
+					back:function () {
+						window.location.href= "../home/home.html"
+					},
+
+					linkto: function (target) {
+						var href = window.location.href.replace(/[\w-_]+\.html$/, '');
+						window.location.href= href + target
+					}
+				},
+
+				mounted: function () {
+					setTimeout(function () {
+						app.loaded = true
+					})
+				}
+			})
+		})
+	</script>
+</body>
+</html>

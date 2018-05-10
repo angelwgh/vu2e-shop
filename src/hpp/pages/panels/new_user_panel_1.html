@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+	<title>自定义模板</title>
+
+	<link rel="stylesheet" href="../../content/lib/vue-ydui/dist/ydui.px.css">
+	<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+	<link rel="stylesheet" href="../../content/style/fonts/iconfont.css">
+	<!-- <link rel="stylesheet" href="//unpkg.com/vue-ydui/dist/ydui.px.css"> -->
+	<link rel="stylesheet" href="../../content/style/commom.css">
+	<link rel="stylesheet" href="../../content/style/pages/panels/new_user_panel.css">
+	<link rel="stylesheet" href="../../content/style/pages/panels/editor/editor.css">
+	<style>
+		.main-btn{
+		    position: fixed;
+		    padding-top: 15px;
+		    bottom: 0;
+		    width: 100%;
+		    height: 80px;
+		    text-align: center;
+		    z-index: 9;
+		    border-top: 1px solid #ccc;
+		    background-color: #fff;
+		}
+		.main-btn button{
+			margin: 0 10px;
+			width: 100px;
+		    height: 45px;
+		    line-height: 45px;
+		    font-size: 20px;
+		    color: #fff;
+		    border: none;
+		    border-radius: 1000px;
+		    background-color: #ff6699;
+		}
+
+		.popview{
+			width: 100%;
+		    position: fixed;
+		    z-index: 999;
+		    top: 50px;
+		    bottom: 0;
+		    background-color: #fff;
+		}
+	</style>
+</head>
+<body>
+	<div id="app">
+		<hpp-navbar
+			v-on:back="back"
+			v-on:right-click="rightBtn"
+			v-bind:bgcolor="header_data.bgcolor"
+			v-bind:color="header_data.color"
+			v-bind:title="title"
+			v-bind:right-show="header_data.right_show"
+			></hpp-navbar>
+		<div class="containt">
+			<hpp-panels v-bind:edit-modules="panel_data"></hpp-panels>
+			<div class="main-btn">
+				<button v-on:click="saveAsPicture">整图保存</button>
+			</div>
+		</div>
+		<transition	v-for="item in popviews"
+		    name="slide-left"
+		    :key="item.id">
+			<div class="popview" v-if="item.show">
+				{{item.text}}
+			</div>
+		</transition>
+	</div>
+	
+	<script src="../../content/js/require.js"></script>
+	<script>
+		// 配置requirejs
+		require.config({
+			baseUrl:'../../content',
+		　　　paths: {
+				"vue":'lib/vue/dist/vue',
+				'axios': 'lib/axios/axios',
+				'html2canvas': 'lib/html2canvas/html2canvas.min',
+				'ydui':'lib/vue-ydui/dist/ydui.px',
+				'AlloyFinger': 'lib/alloyfinger/alloy_finger',
+				'alloytouch': 'lib/alloytouch/alloy_touch',
+				'vueAlloyTouch': 'lib/alloytouch/vue/alloy_touch.vue',
+				'Transform': 'lib/alloytouch/transformjs/transform',
+				'main': 'js/editor_1/main',
+				'util': 'js/editor_1/util',
+				'golbal': 'js/editor_1/golbal',
+				'ELEMENT':'lib/element-ui/element-ui',
+				'text':'js/text'
+		　　　},
+			shim: {
+				'AlloyFinger':{deps:[], exports: 'AlloyFinger'},
+				'alloytouch':{deps:[], exports: 'AlloyTouch'},
+				'vueAlloyTouch': {deps: ['alloytouch', 'Transform'], exports: 'vueAlloyTouch'},
+				'ydui': {deps: ['vue'], exports: 'ydui'},
+				'ELEMENT': {deps: ['vue'], exports: 'ELEMENT'}
+			}
+		})
+
+		require(['vue','golbal','main',], 
+			function (Vue, golbal, main ) {
+
+			var app = new Vue({
+				el: '#app',
+				data: {
+					// 头部导航栏数据
+					header_data: {
+						bgcolor: golbal.header_style.bgColor,
+						color: golbal.header_style.color,
+						title: '自定义模板',
+						right_show: true
+					},
+					panel_data:golbal.panel_data, // 页面数据
+					popviews: [],
+					i:0,
+					test: {
+						num:0
+					}
+				},
+				computed: {
+					title: function () {
+						// 设置导航栏标题
+						var len = this.popviews.length
+						if(len == 0){
+							return this.header_data.title
+						}else {
+							return  this.popviews[len-1].title
+						}
+
+
+					}
+				},
+				methods: {
+					back: function () {
+						this.popviews = []
+					},
+
+					rightBtn: function () {
+						console.log('右边按钮')
+						// this.showPopview2 = true
+						// var i = this.i++
+						var length = this.popviews.length;
+
+						var obj = {
+							id: length,
+							show:false,
+							text: length,
+							title: '第' + length + '页'
+						}
+						this.popviews.push(obj)
+						this.$nextTick(function () {
+							obj.show = true
+						})
+					},
+
+					// 保存为图片
+					saveAsPicture: function () {
+						console.log('整图保存')
+						console.log(this.test)
+						
+					}
+
+
+				},
+				mounted: function () {
+					this.$nextTick(function () {
+						this.$el.className = "show"
+					})
+				}
+				
+			})
+			
+			// console.log(app)
+
+		})
+	</script>
+</body>
+</html>

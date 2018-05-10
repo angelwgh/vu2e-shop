@@ -299,7 +299,7 @@
 })
 
 function chatQQ(qq){
-        //其中1234567指的是QQ号码
-        var qqnum = qq || '1234567';
-        window.location.href="mqqwpa://im/chat?chat_type=wpa&uin="+qqnum+"&version=1&src_type=web&web_src=oicqzone.com";
-    }
+    //其中1234567指的是QQ号码
+    var qqnum = qq || '2859586682';
+    window.location.href="mqqwpa://im/chat?chat_type=wpa&uin="+qqnum+"&version=1&src_type=web&web_src=oicqzone.com";
+}

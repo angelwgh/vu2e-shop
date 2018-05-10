@@ -1,0 +1,34 @@
+<div class="text-container">
+	<div class="textarea"
+		 :style="{
+		 	left: editorData.left + 'px',
+		 	top: editorData.top + 'px',
+		 	width: editorData.width + 'px',
+		 	height: editorData.height + 'px',
+		 	lineHeight: editorData.lineHeight,
+		 	transformOrigin: editorData.width/2+'px '+  editorData.height/2 + 'px',
+		 	transform: 'rotate('+editorData.rotate+'deg)',
+		 	fontFamily: editorData.fontFamily,
+		 	fontSize: editorData.fontSize + 'px',
+		 	letterSpacing: editorData.letterSpacing + 'px',
+		 	color: editorData.color,
+		 	webkitTextStrokeColor: editorData.webkitTextStrokeColor,
+		 	webkitTextStrokeWidth: editorData.webkitTextStrokeWidth + 'px'
+		  }">
+		<textarea 
+			:style="{
+				transformOrigin:'0px 0px',
+				transform: 'scale('+editorData.scaleX+','+editorData.scaleY+')',
+				width: viewWidth + 'px',
+				height: viewHeight + 'px'
+			}" 
+			v-model="editorData.content" 
+			v-show="editorData.focus"></textarea>
+		<div class="text-view"
+			 :style="{
+			 	transformOrigin:'0px 0px',
+				transform: 'scale('+editorData.scaleX+','+editorData.scaleY+')',
+			}"
+			:class="{'hide-text-view':editorData.focus}" v-text="editorData.content"></div>
+	</div>
+</div>

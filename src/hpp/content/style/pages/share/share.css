@@ -1,0 +1,84 @@
+.m-share{
+		position: relative;
+		width: 100%;
+		height: 100%;
+		/*background-image: url(../../../images/share_bg.jpg);*/
+		background-repeat: no-repeat;
+		background-size: 100% 100%;
+	}
+
+	/*.m-share .btn1{
+		position: absolute;
+		right: 40px;
+		top:30px;
+		width: 42px;
+		height: 56px;
+		background-image: url(../../../images/icon.png);
+		background-position: -90px -65px;
+	}
+	.m-share .btn2{
+		position: absolute;
+		left: 50%;
+		top:65.6%;
+		width: 232px;
+		height: 46px;
+		transform: translateX(-50%);
+		background-image: url(../../../images/icon.png);
+		background-position: 0 -260px;
+	}*/
+.m-share .bg-img{
+	position: absolute;
+	padding-bottom: 20px;
+	width: 100%;
+	top: 0;
+	bottom: 140px;
+	background-image: url(../../../images/share/bgimg.jpg);
+	-webkit-background-size: 100% 100%;
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+}
+
+
+.m-share .bg-img .icon-img{
+	width: 70%;
+}
+.m-share .bg-img .share{
+	width: 60%;
+}
+
+.m-share .bg-img img{
+	width: 100%;
+}
+	.m-share .rules{
+		position: absolute;
+		bottom: 0;
+		height: 164px;
+		padding: 40px 20px 0;
+		background-image: url(../../../images/share/bottom.png);
+		-webkit-background-size: 100%;
+		background-size: 100% 100%;
+		background-repeat: no-repeat;
+	}
+	
+	.m-share .rules .rule-title{
+		position: absolute;
+		top: 5px;
+		left: 50%;
+		color: #a5823c;
+		font-size: 20px;
+		transform: translateX(-50%);
+	}
+	.m-share .rule{
+		margin-bottom: 5px;
+		align-items:flex-start;
+		justify-content:flex-start;
+		color: #CFC4BA;
+		font-size: 13.5px;
+		text-align: left;
+		line-height: 1.5;
+	}

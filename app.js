@@ -2,9 +2,10 @@ const express = require('express')
 
 const app = express()
 
-// app.use('/static', express.static('src'));
+
 app.use('/sirui', express.static('src/sirui'))
-// app.use('/m-sirui', express.static('src/sirui/mobile'))
+app.use('/hpp', express.static('src/hpp'))
+
 app.get('', (req, res) => {
 	res.send('')
 })

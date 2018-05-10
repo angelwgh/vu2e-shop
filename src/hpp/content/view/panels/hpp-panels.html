@@ -1,0 +1,25 @@
+<div class="m-edit">
+	<div id="wrapper"
+		 v-alloytouch="{options: alloyTouchData.options, methods:{ initAlloyTouch: initAlloyTouch, animationEnd: animationEnd}, min: alloyTouchData.min, max: alloyTouchData.max}">
+		
+	 	<div id="J_detail_content" style="background-color: #ccc;">
+	 		<div class="edit-module"
+	 			v-for="(module, moduleIndex) in editModules"
+	 			:id="'module_' + moduleIndex"
+	 			:style="{
+		 			height: module.height + 'px',
+		 			width: module.width,
+		 		}">
+	 			<div 
+	 				v-for="(editor, editorIndex) in module.editors"
+	 				ref="editor"
+	 				:is="editor.componentName"
+	 				:editor-data="editor"
+	 				:moduleIndex="moduleIndex"
+	 				:editorIndex="editorIndex">
+	 					
+	 			</div>
+	 		</div>
+	 	</div>
+	 </div>
+</div>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+	<title>设置</title>
+	<link rel="stylesheet" href="../../content/lib/vue-ydui/dist/ydui.px.css">
+	<link rel="stylesheet" href="../../content/style/fonts/iconfont.css">
+	<!-- <link rel="stylesheet" href="//unpkg.com/vue-ydui/dist/ydui.px.css"> -->
+	<link rel="stylesheet" href="../../content/style/commom.css">
+	<link rel="stylesheet" href="../../content/style/pages/setting/bind_tel.css">
+	<style>
+
+	</style>
+</head>
+<body>
+	<div id="app">
+		<div is="yd-layout">
+			<div :style="{
+					paddingTop: headTop,
+					backgroundColor: headTopColor
+				}"
+				 slot="navbar">
+				<div is="yd-navbar" slot="navbar"
+						   :title="title"
+						   :bgcolor="headStyle.bgcolor"
+						   :color="headStyle.color">
+					<div slot="left" :style="{color: headStyle.color}" 
+						 v-on:click="back">
+						<div is="yd-navbar-back-icon" :color="headStyle.color"
+							>返回</div>
+					</div>
+					<div slot="right" :style="{color: headStyle.color}">
+						<!-- <i class="iconfont icon-jia" v-finger:tap="openFeatures"></i> -->
+					</div>		   	
+				</div>
+				
+			</div>
+			<div class="containt">
+				<div is="yd-cell-group">
+			        <div is="yd-cell-item">
+			            <span slot="left" class="telnum">+86</span>
+			            <div is="yd-input" slot="right" v-model="telnum"></div>
+			        </div>
+			        <div is="yd-cell-item">
+			            <input slot="right" type="password" v-model="password" placeholder="请输入新密码">
+			        </div>
+			        <div is="yd-cell-item">
+			        	<input slot="right" type="password" v-model="password1" placeholder="请再次输入新密码">
+			        </div>
+			        <div is="yd-cell-item">
+			        	<span slot="left">输入验证码</span>
+			        	<input type="text" slot="left" class="code">
+						<button slot="right" class="send-code">发送验证码</button>
+			        </div>
+			    </div>
+			    <div>
+			    	<div class="find-psw" v-on:click="findPsw">找回密码</div>
+			    </div>
+				<div class="confirm">
+					<button type="submit">确定</button>
+					<!-- <div is="yd-button" type="primary" v-on:touchstart.native="confirm">确定</div> -->
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	<script src="../../content/lib/vue/dist/vue.js"></script>
+	<script src="../../content/lib/vue-ydui/dist/ydui.px.js"></script>
+<!-- 	<script type="text/javascript" src="../../content/lib/alloytouch/alloy_touch.js"></script>
+	<script type="text/javascript" src="../../content/lib/alloytouch/transformjs/transform.js"></script>
+	<script type="text/javascript" src="../../content/lib/alloytouch/vue/alloy_touch.vue.js"></script> -->
+	<script src="../../content/js/util.js"></script>
+	<script src="../../content/js/golbal.js"></script>
+	<!--  -->
+	<!-- <script src="//unpkg.com/vue-ydui/dist/ydui.px.js"></script> -->
+	<script>
+		// var page;
+		// console.log(util)
+		(function (root, factory) {
+			root.page = factory(root)
+		})(this, function (root) {
+			// console.log(root)
+			console.log(util.isDom())
+			// Vue.use(vueAlloyTouch);
+			var app = new Vue({
+				el:'#app',
+				data: {
+					headTop: golbal.headTop,
+					headTopColor: golbal.headTopColor,
+					headStyle: {
+						bgcolor: '#fff',
+						color: '#000'
+					},
+					title:'绑定手机',
+
+					telnum:'',
+					password:'',
+					password1:'',
+					
+				},
+
+				methods: {
+					back:function () {
+						window.history.go(-1)
+					},
+
+					findPsw: function () {
+						var href = window.location.href.replace(/[\w-_]+\.html$/, '');
+						window.location.href= href + 'find_password.html'
+					}
+				},
+
+				mounted: function () {
+					this.$nextTick(function () {
+						this.$el.className = "show"
+					})
+				}
+			})
+		})
+	</script>
+</body>
+</html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+	<title>设置</title>
+	<link rel="stylesheet" href="../../content/lib/vue-ydui/dist/ydui.px.css">
+	<link rel="stylesheet" href="../../content/style/fonts/iconfont.css">
+	<!-- <link rel="stylesheet" href="//unpkg.com/vue-ydui/dist/ydui.px.css"> -->
+	<link rel="stylesheet" href="../../content/style/commom.css">
+	<link rel="stylesheet" href="../../content/style/pages/bbs/bbs.css">
+	<style>
+
+	</style>
+</head>
+<body>
+	<div id="app">
+		<yd-layout>
+			<div :style="{
+					paddingTop: headTop,
+					backgroundColor: headTopColor
+				}"
+				 slot="navbar">
+				<yd-navbar slot="navbar"
+						   :title="title"
+						   :bgcolor="headStyle.bgcolor"
+						   :color="headStyle.color">
+					<div slot="left" :style="{color: headStyle.color}" >
+						<yd-navbar-back-icon :color="headStyle.color"
+							v-on:touchstart.native="back">返回</yd-navbar-back-icon>
+					</div>
+					<div slot="right" :style="{color: headStyle.color}">
+						<!-- <i class="iconfont icon-jia" v-finger:tap="openFeatures"></i> -->
+					</div>		   	
+				</yd-navbar>
+				
+			</div>
+			<div class="containt">
+				<div class="messages-list">
+					<div class="messages-item" v-for="msg in messages.list" v-bind:key="msg.id">
+						<div class="item-left">
+							<div class="head-img">
+								<img v-bind:src="msg.author.headImg" >
+							</div>
+						</div>
+						<div class="item-right">
+							<div class="account">{{msg.author.account}}</div>
+							<div class="message-content">{{msg.content}}</div>
+							<div class="message-info">
+								
+								<div class="time">{{msg.time}}</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+				<div class="write-message">
+					<div v-if="isWriting">
+						<div class="btns">
+							<div class="cancel" v-on:click="cancelWrite">取消</div>
+							<div class="send"
+								 v-bind:class="{ok:myMessage}" v-on:click="sendMessage">发送</div>
+						</div>
+						<div class="textarea">
+							<textarea v-model="myMessage"></textarea>
+						</div>
+					</div>
+					
+					<div class="write" v-show="!isWriting" v-on:click="writeMsg">
+						写留言
+					</div>
+					<!-- <div class="textarea">
+						<textarea ></textarea>
+					</div> -->
+				</div>
+			</div>
+		</yd-layout>
+		
+	</div>
+	<script src="../../content/lib/vue/dist/vue.js"></script>
+	<script src="../../content/lib/vue-ydui/dist/ydui.px.js"></script>
+<!-- 	<script type="text/javascript" src="../../content/lib/alloytouch/alloy_touch.js"></script>
+	<script type="text/javascript" src="../../content/lib/alloytouch/transformjs/transform.js"></script>
+	<script type="text/javascript" src="../../content/lib/alloytouch/vue/alloy_touch.vue.js"></script> -->
+	<script src="../../content/js/util.js"></script>
+	<script src="../../content/js/golbal.js"></script>
+	<!--  -->
+	<!-- <script src="//unpkg.com/vue-ydui/dist/ydui.px.js"></script> -->
+	<script>
+		// var page;
+		// console.log(util)
+		(function (root, factory) {
+			root.page = factory(root)
+		})(this, function (root) {
+			// console.log(root)
+			console.log(util.isDom())
+			// Vue.use(vueAlloyTouch);
+			var app = new Vue({
+				el:'#app',
+				data: {
+					headTop: golbal.headTop,
+					headTopColor: golbal.headTopColor,
+					headStyle: {
+						bgcolor: golbal.headStyle.bgColor,
+						color: golbal.headStyle.color
+					},
+					title:'嗨披社区',
+					messages:'',
+					myMessage:'',
+					isWriting: false
+					
+				},
+
+				methods: {
+					init:function () {
+						
+						this.getMessageList()
+					},
+					getMessageList: function () {
+						this.messages={
+								list:[
+									{	
+										id:1,
+										content:'第二条留言',
+										author: {
+											account: 'angelwgh',
+											headImg: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2727319063,4252015704&fm=27&gp=0.jpg'
+										},
+										time: '2018-04-12 09:40:32'
+									},
+									{	
+										id:0,
+										content:'Hello 大家好，我是angelwgh',
+										author: {
+											account: 'angelwgh',
+											headImg: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2727319063,4252015704&fm=27&gp=0.jpg'
+										},
+										time: '2018-04-12 09:48:32'
+									},
+									
+								]
+							}
+					},
+					back:function () {
+						window.history.go(-1)
+					},
+
+					linkto: function (target) {
+						var href = window.location.href.replace(/[\w-_]+\.html$/, '');
+						window.location.href= href + target
+					},
+
+					writeMsg: function () {
+						this.isWriting = true;
+						this.$nextTick(function () {
+							var textarea = document.getElementsByTagName('textarea');
+							// console.log(textarea)
+							textarea[0].focus()
+						})
+						
+					},
+
+					cancelWrite: function () {
+						this.isWriting = false;
+					},
+
+					sendMessage: function () {
+						if(!this.myMessage) return;
+						var msgData = {
+							id: this.messages.list.length,
+							content: this.myMessage,
+							author: {
+								account: 'angelwgh',
+								headImg: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2727319063,4252015704&fm=27&gp=0.jpg'
+							},
+							time: this.getDate()
+
+						}
+
+						this.messages.list.unshift(msgData);
+						this.myMessage = '';
+						this.cancelWrite()
+						console.log(msgData)
+						// console.log(new Date())
+					},
+
+					getDate: function () {
+						var date = new Date()
+						var datastr = date.getFullYear() + '-'+
+									  handelNum(date.getMonth() + 1) + '-'+
+									  handelNum(date.getDate()) + ' '+
+									  handelNum(date.getHours()) + ':'+
+									  handelNum(date.getMinutes()) + ':'+
+									  handelNum(date.getSeconds())
+
+						function handelNum(num) {
+							return num > 9 ? num : '0' + num
+						}
+
+
+						return datastr;
+					}
+				},
+				mounted () {
+					this.init();
+					this.$nextTick(function () {
+						this.$el.className = "show"
+					})
+				}
+			})
+		})
+	</script>
+</body>
+</html>

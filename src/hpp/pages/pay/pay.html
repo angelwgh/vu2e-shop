@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+	<title>申请新会员</title>
+	<link rel="stylesheet" href="../../content/lib/vue-ydui/dist/ydui.px.css">
+	<link rel="stylesheet" href="../../content/style/fonts/iconfont.css">
+	<!-- <link rel="stylesheet" href="//unpkg.com/vue-ydui/dist/ydui.px.css"> -->
+	<link rel="stylesheet" href="../../content/style/commom.css">
+	<link rel="stylesheet" href="../../content/style/pages/pay/pay.css">
+	<style>
+		
+	</style>
+</head>
+<body>
+	<div id="app">
+		<div is="yd-layout">
+			<div :style="{
+					paddingTop: headTop,
+					backgroundColor: headTopColor
+				}"
+				 slot="navbar">
+				<di is="yd-navbar" slot="navbar"
+						   :title="title"
+						   :bgcolor="headStyle.bgcolor"
+						   :color="headStyle.color">
+					<div slot="left" :style="{color: headStyle.color}" >
+						<div is="yd-navbar-back-icon" :color="headStyle.color"
+							v-on:touchstart.native="back">返回</div >
+					</div>
+					<div slot="right" :style="{color: headStyle.color}">
+						<!-- <i class="iconfont icon-jia" v-finger:tap="openFeatures"></i> -->
+					</div>		   	
+				</div>
+				
+			</div>
+			<div class="containt flex">
+				<div class="icons-group flex">
+					<div class="icon-item ">
+						<div class="icon wx"></div>
+						<div class="text">微支付</div>
+					</div>
+					<div class="icon-item">
+						<div class="icon zfb"></div>
+						<div class="text">支付宝</div>
+					</div>
+				</div>
+				<div class="btns">
+					<div is="yd-button"
+						bgcolor="#FF5C83"
+						color="#fff"
+						shape="circle">任性支付</div>
+					<!-- <button></button> -->
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	<script src="../../content/lib/vue/dist/vue.js"></script>
+	<script src="../../content/lib/vue-ydui/dist/ydui.px.js"></script>
+<!-- 	<script type="text/javascript" src="../../content/lib/alloytouch/alloy_touch.js"></script>
+	<script type="text/javascript" src="../../content/lib/alloytouch/transformjs/transform.js"></script>
+	<script type="text/javascript" src="../../content/lib/alloytouch/vue/alloy_touch.vue.js"></script> -->
+	<script src="../../content/js/util.js"></script>
+	<script src="../../content/js/golbal.js"></script>
+	<!--  -->
+	<!-- <script src="//unpkg.com/vue-ydui/dist/ydui.px.js"></script> -->
+	<script>
+		// var page;
+		// console.log(util)
+		(function (root, factory) {
+			root.page = factory(root)
+		})(this, function (root) {
+			// console.log(root)
+			console.log(util.isDom())
+			// Vue.use(vueAlloyTouch);
+			var app = new Vue({
+				el:'#app',
+				data: {
+					headTop: golbal.headTop,
+					headTopColor: golbal.headTopColor,
+					headStyle: {
+						bgcolor: golbal.headStyle.bgColor,
+						color: golbal.headStyle.color
+					},
+					title:'选择支付',
+					fullHeight:0,
+					winWidth:0
+				},
+
+				methods: {
+
+					back:function () {
+						window.history.go(-1)
+					},
+
+					linkto: function () {
+						var href = window.location.href.replace(/[\w-_]+\.html$/, '');
+						window.location.href= href + 'target'
+					}
+				},
+
+				mounted () {
+					this.$nextTick(function () {
+						this.$el.className = "show"
+					})
+				}
+			})
+		})
+	</script>
+</body>
+</html>

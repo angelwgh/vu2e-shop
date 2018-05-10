@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+	<title>绑定手机</title>
+	<link rel="stylesheet" href="../../content/lib/vue-ydui/dist/ydui.px.css">
+	<link rel="stylesheet" href="../../content/style/fonts/iconfont.css">
+	<!-- <link rel="stylesheet" href="//unpkg.com/vue-ydui/dist/ydui.px.css"> -->
+	<link rel="stylesheet" href="../../content/style/commom.css">
+	<!-- <link rel="stylesheet" href="./account.css"> -->
+	<link rel="stylesheet" href="../../content/style/pages/share/share.css">
+	<style>
+
+	</style>
+</head>
+<body>
+	<div id="app" :style="{opacity: loaded ? 1 : 0}">
+		<div class="m-share">
+			<!-- <div class="btn1"></div> -->
+			<!-- <div class="btn2" v-on:click="share"></div> -->
+			<div class="bg-img">
+				<div class="icon-img">
+					<img src="../../content/images/share/icon1.png" alt="">
+				</div>
+				<div class="share" v-on:click="share">
+					<img src="../../content/images/share/share.png" alt="">
+				</div>
+			</div>
+			<div class="rules">
+				<div class="rule-title">活动规则</div>
+				<div class="rule-content">
+					<div class="rule flex" v-for="(rule, index) in rules">
+						<div>{{index + 1 + '、'}}</div><div>{{rule}}</div>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+	<script src="../../content/lib/vue/dist/vue.js"></script>
+	<script src="../../content/lib/vue-ydui/dist/ydui.px.js"></script>
+<!-- 	<script type="text/javascript" src="../../content/lib/alloytouch/alloy_touch.js"></script>
+	<script type="text/javascript" src="../../content/lib/alloytouch/transformjs/transform.js"></script>
+	<script type="text/javascript" src="../../content/lib/alloytouch/vue/alloy_touch.vue.js"></script> -->
+	<script src="../../content/js/util.js"></script>
+	<script src="../../content/js/golbal.js"></script>
+	<!--  -->
+	<!-- <script src="//unpkg.com/vue-ydui/dist/ydui.px.js"></script> -->
+	<script>
+		// var page;
+		// console.log(util)
+		(function (root, factory) {
+			root.page = factory(root)
+		})(this, function (root) {
+			// console.log(root)
+			console.log(util.isDom())
+			// Vue.use(vueAlloyTouch);
+			var app = new Vue({
+				el:'#app',
+				data: {
+					loaded: false,
+					rules:[
+						'活动期间，用户分享活动页面给好友，获得3位好友注册成功后，分享的成果是获得一张免费体验券。',
+						'活动期间，用户所获得免费体验券可赠送QQ微信好友，免费体验券有效期一年。'
+					]			
+				},
+
+				methods: {
+					back: function() {
+						window.history.go(-1)
+					},
+					linkto: function(target) {
+						var href = window.location.href.replace(/home\/[\w-_]+\.html$/, '');
+						window.location.href= href + target
+					},
+
+					openLink: function() {
+
+					},
+					share: function () {
+						var href = window.location.href.replace(/[\w-_]+\.html$/, '');
+						window.location.href= href + 'share_to.html'
+					}
+				},
+
+				mounted: function () {
+					setTimeout(function () {
+						app.loaded = true
+					})
+				}
+			})
+		})
+	</script>
+</body>
+</html>

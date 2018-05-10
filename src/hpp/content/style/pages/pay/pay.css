@@ -1,0 +1,58 @@
+
+.containt{
+	position: absolute;
+	top: 60px;
+	bottom: 0;
+	width: 100%;
+	justify-content: center;
+	-webkit-box-orient:vertical;
+	-webkit-box-direction:normal;
+	   -moz-box-orient:vertical;
+	   -moz-box-direction:normal;
+	    -ms-flex-direction:column ;
+	        flex-direction:column ;
+
+}
+.containt .icons-group{
+	-webkit-box-pack: center;
+	   -moz-box-pack: center;
+	    -ms-flex-pack: center;
+	        justify-content: center;
+}
+.containt .icon-item{
+	margin: 15px;
+	padding-top: 7px;
+	width: 74px;
+	height: 72px;
+	text-align: center;
+	-moz-border-radius: 10px;
+	     border-radius: 10px;
+	background-color: #D4CCCA;
+}
+.containt .icon{
+	margin: 0 auto;
+	width: 40px;
+	height: 40px;
+	background-image: url(../../../images/icon.png);
+	background-position: -210px 0;
+}
+
+.containt .icon.wx{
+	background-position: -110px 0;
+}
+.containt .icon.qq{
+	background-position: -160px 0;
+}
+
+.containt .icon.zfb{
+	background-position: -180px -320px;
+}
+.containt .btns{
+	margin-top: 40px;
+	text-align: center;
+}
+
+.containt .btns button{
+	padding:5px 30px;
+	font-size: 20px;
+}

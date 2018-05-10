@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+	<title>设置</title>
+	<link rel="stylesheet" href="../../content/lib/vue-ydui/dist/ydui.px.css">
+	<link rel="stylesheet" href="../../content/style/fonts/iconfont.css">
+	<!-- <link rel="stylesheet" href="//unpkg.com/vue-ydui/dist/ydui.px.css"> -->
+	<link rel="stylesheet" href="../../content/style/commom.css">
+	<link rel="stylesheet" href="../../content/style/pages/setting/account_switch.css">
+	<style>
+
+	</style>
+</head>
+<body>
+	<div id="app">
+		<div is="yd-layout">
+			<div :style="{
+					paddingTop: headTop,
+					backgroundColor: headTopColor
+				}"
+				 slot="navbar">
+				<div is="yd-navbar" slot="navbar"
+						   :title="title"
+						   :bgcolor="headStyle.bgcolor"
+						   :color="headStyle.color">
+					<div slot="left" :style="{color: headStyle.color}" 
+						 v-on:click="back">
+						<div is="yd-navbar-back-icon" :color="headStyle.color"
+							>返回</div>
+					</div>
+					<div slot="right" :style="{color: headStyle.color}">
+						<!-- <i class="iconfont icon-jia" v-finger:tap="openFeatures"></i> -->
+					</div>		   	
+				</div>
+				
+			</div>
+			<div class="containt">
+				<div class="ment-list">
+					<div  is="yd-cell-group">
+			            <div is="yd-cell-item" v-on:click.native="showSelector('qq')">
+			            	<span slot="icon" class="qq"></span>
+			                <span slot="left">QQ管理</span>
+			                <span slot="right">阿提拉</span>
+			                <span slot="right"><i class="iconfont icon-right-arrow"></i></span>
+			            </div>
+			             <div is="yd-cell-item"  v-on:click.native="showSelector('wx')">
+			            	<span slot="icon" class="wx"></span>
+			                <span slot="left">微信管理</span>
+			                <span slot="right"><yd-button bgcolor="#FF5C83" color="#fff" shape="circle">绑定</yd-button></span>
+			                <!-- <span slot="right"><i class="iconfont icon-right-arrow"></i></span> -->
+			            </div>
+			             <div is="yd-cell-item" v-on:click.native="showSelector('wb')">
+			            	<span slot="icon" class="wb"></span>
+			                <span slot="left">新浪微博</span>
+			                 <span slot="right"><yd-button bgcolor="#FF5C83" color="#fff" shape="circle">绑定</yd-button></span>
+			                <!-- <span slot="right"><i class="iconfont icon-right-arrow"></i></span> -->
+			            </div>
+			        </div>
+				</div>
+				<div class="ment-list">
+					<div is="yd-cell-group">
+			            <div is="yd-cell-item" v-on:click.native="linkto('bind_tel.html')">
+			            	<span slot="icon" class="tel"></span>
+			                <span slot="left">绑定手机</span>
+			                <!-- <span slot="right">18758246888</span> -->
+			                <!-- <span slot="right"><i class="iconfont icon-right-arrow"></i></span> -->
+			            </div>
+			        </div>
+				</div>
+				<div class="bottom-menu">
+					<div is="yd-actionsheet" :items="bottomMenu.items" v-model="bottomMenu.show" cancel="取消"></div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	<script src="../../content/lib/vue/dist/vue.js"></script>
+	<script src="../../content/lib/vue-ydui/dist/ydui.px.js"></script>
+<!-- 	<script type="text/javascript" src="../../content/lib/alloytouch/alloy_touch.js"></script>
+	<script type="text/javascript" src="../../content/lib/alloytouch/transformjs/transform.js"></script>
+	<script type="text/javascript" src="../../content/lib/alloytouch/vue/alloy_touch.vue.js"></script> -->
+	<script src="../../content/js/util.js"></script>
+	<script src="../../content/js/golbal.js"></script>
+	<!--  -->
+	<!-- <script src="//unpkg.com/vue-ydui/dist/ydui.px.js"></script> -->
+	<script>
+		// var page;
+		// console.log(util)
+		(function (root, factory) {
+			root.page = factory(root)
+		})(this, function (root) {
+			// console.log(root)
+			console.log(util.isDom())
+			// Vue.use(vueAlloyTouch);
+			var app = new Vue({
+				el:'#app',
+				data: {
+					headTop: golbal.headTop,
+					headTopColor: golbal.headTopColor,
+					headStyle: {
+						bgcolor: golbal.headStyle.bgColor,
+						color: golbal.headStyle.color
+					},
+					title:'切换账号',
+					showBottomMenu: false,
+					bottomMenu:{
+						show: false,
+						items: [
+							{
+								label: '确认解除绑定吗',
+								stay: true
+							},
+							{
+								label: '解除绑定',
+								callback: () => {
+									console.log(this)
+								}
+							}
+						]
+					}
+					
+				},
+
+				methods: {
+					back:function () {
+						window.history.go(-1)
+					},
+
+					showSelector: function (type) {
+						console.log(type)
+							this.bottomMenu.show = true;
+						
+					},
+
+					linkto: function (target) {
+						var href = window.location.href.replace(/[\w-_]+\.html$/, '');
+						window.location.href= href + target
+					}
+				},
+
+				mounted: function () {
+					this.$nextTick(function () {
+						this.$el.className = "show"
+					})
+				}
+			})
+		})
+	</script>
+</body>
+</html>

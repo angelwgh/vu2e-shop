@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+	<title>绑定手机</title>
+	<link rel="stylesheet" href="../../content/lib/vue-ydui/dist/ydui.px.css">
+	<link rel="stylesheet" href="../../content/style/fonts/iconfont.css">
+	<!-- <link rel="stylesheet" href="//unpkg.com/vue-ydui/dist/ydui.px.css"> -->
+	<link rel="stylesheet" href="../../content/style/commom.css">
+	<!-- <link rel="stylesheet" href="./account.css"> -->
+	<link rel="stylesheet" href="../../content/style/pages/home/home.css">
+</head>
+<body>
+	<div id="app" v-bind:style="{opacity: loaded ? 1 : 0}">
+		<div is="yd-layout">
+			<div v-bind:style="{
+					paddingTop: headTop,
+					backgroundColor: headTopColor
+				}"
+				 slot="navbar">
+				<!-- <div is="yd-navbar" class="header">
+					<div slot="right">
+						<div class="icon" v-on:touchstart="linkto('../setting/setting.html')">
+							<i class="iconfont icon-setting" style="font-size: 30px"></i>
+						</div>
+					</div>
+				</div> -->
+				<div class="setting-icon" v-on:touchstart="linkto('../setting/setting.html')">
+					<i class="iconfont icon-setting" style="font-size: 30px"></i>
+				</div>
+				
+			</div>
+			<div class="containt flex">
+
+				<div class="m-slide">
+					<div is="yd-slider" autoplay="3000">
+				        <div is="yd-slider-item" v-for="src in slide.imgs" :key="src">
+				            <img :src="src">
+				        </div>
+				    </div>
+				</div>
+				<div class="btns flex">
+					<div v-on:touchstart="linkto('../panels/hp_panel.html')">
+						<div class="icon">
+							<img src="../../content/images/home/home_icon_1.png" alt="">
+						</div>
+						<div class="text">嗨披模板</div>
+					</div>
+					<div v-on:touchstart="linkto('../panels/new_user_panel.html')">
+						<div class="icon">
+							<img src="../../content/images/home/home_icon_2.png" alt="">
+						</div>
+						<div class="text">自制模板</div>
+					</div>
+					<div v-on:touchstart="linkto('../bbs/bbs.html')">
+						<div class="icon">
+							<img src="../../content/images/home/home_icon_3.png" alt="">
+						</div>
+						<div class="text">嗨披社区</div>
+					</div>
+					<div v-on:touchstart="linkto('../share/share.html')">
+						<div class="icon">
+							<img src="../../content/images/home/home_icon_4.png" alt="">
+						</div>
+						<div class="text">分享体验</div>
+					</div>
+				</div>
+				<div class="foot">
+					<div class="icon"></div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	<script src="../../content/lib/vue/dist/vue.js"></script>
+	<script src="../../content/lib/vue-ydui/dist/ydui.px.js"></script>
+<!-- 	<script type="text/javascript" src="../../content/lib/alloytouch/alloy_touch.js"></script>
+	<script type="text/javascript" src="../../content/lib/alloytouch/transformjs/transform.js"></script>
+	<script type="text/javascript" src="../../content/lib/alloytouch/vue/alloy_touch.vue.js"></script> -->
+	<script src="../../content/js/util.js"></script>
+	<script src="../../content/js/golbal.js"></script>
+	<!--  -->
+	<!-- <script src="//unpkg.com/vue-ydui/dist/ydui.px.js"></script> -->
+	<script>
+
+		(function (root, factory) {
+			factory(root)
+		})(this, function (root) {
+			// console.log(root)
+			console.log(util.isDom())
+			// Vue.use(vueAlloyTouch);
+			var app = new Vue({
+				el:'#app',
+				data: {
+					loaded: false,
+					headTop: golbal.headTop,
+					headTopColor: golbal.headTopColor,
+					headStyle: {
+						bgcolor: '#fff',
+						color: '#000'
+					},
+
+					slide:{
+						imgs:[
+							"../../content/images/slide1.jpg",
+							"../../content/images/slide2.jpg",
+							"../../content/images/slide3.jpg",
+						]
+					}
+					
+				},
+
+				methods: {
+					back: function() {
+						window.history.go(-1)
+					},
+					linkto: function(target) {
+						var href = window.location.href.replace(/[\w-_]+\.html$/, '');
+						window.location.href= href  +  target
+					},
+
+					openLink: function() {
+
+					}
+				},
+
+				mounted () {
+					setTimeout(function () {
+						app.loaded = true;
+					})
+				}
+			})
+		})
+	</script>
+</body>
+</html>
