@@ -869,3 +869,37 @@
     margin-bottom: 15px;
 
 }
+
+.hpp-focus-wrap-text{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 0;
+	height: 0;
+}
+
+.hpp-focus-wrap-text .corner{
+	position: absolute;
+	width: 6px;
+	height: 6px;
+	border-radius: 50%;
+	border: 1px solid #007EB7;
+	background-color: #fff
+}
+
+.hpp-focus-wrap-text .corner::after{
+	content: '';
+    position: absolute;
+    top: 50%;
+    display: block;
+    width: 40px;
+    height: 40px;
+    left: 50%;
+    border-radius: 50%;
+    background-color: transparent;
+    transform: translate(-50%, -50%);
+}
+
+.hpp-focus-wrap-text .corner.black{
+	background-color: #000;
+}

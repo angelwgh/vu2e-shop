@@ -433,11 +433,7 @@
 
 	        },
 
-			// longTap(evt) {
-			// 	// 长按事件
-			// 	// console.log(111111111111)
-			// 	this.$emit('longtouch', this.editorData)
-			// }
+			
 			setTextAlign: function () {
 				// console.log(this.editorData.textAlign)
 				var align = this.editorData.textAlign

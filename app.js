@@ -11,6 +11,7 @@ app.get('', (req, res) => {
 })
 
 app.listen(8007, () => {
+	console.log('localhost:8007')
 	console.log('服务器启动成功')
 	// console.log(111)
 })

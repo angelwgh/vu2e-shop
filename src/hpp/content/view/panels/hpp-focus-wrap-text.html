@@ -1,0 +1,27 @@
+<div class="hpp-focus-wrap-text">
+	<div class="edit-tools" 
+		v-if="editorData.showTools"
+		:style="{
+			top: editToolsSize.top + 'px',
+			left: editToolsSize.left + 'px',
+		}">
+		<div v-for="item in toolsBar"
+			 class="edit-item"
+			>
+			 <span class="tool">{{item.name}}</span>
+		</div>		
+	</div>
+	<div class="conners">
+		<span class="corner"
+			:class="[editorData.editorStatus == 2 ? 'black': '']"
+			v-for="(corner, index) in corners"
+			:data-dir="corner.dir"
+			:style="{
+				left: corner.left + 'px',
+				top: corner.top + 'px'
+			}"
+		>
+			
+		</span>
+	</div>
+</div>

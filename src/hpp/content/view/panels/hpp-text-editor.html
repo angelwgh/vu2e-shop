@@ -29,6 +29,11 @@
 			 	transformOrigin:'0px 0px',
 				transform: 'scale('+editorData.scaleX+','+editorData.scaleY+')',
 			}"
-			:class="{'hide-text-view':editorData.focus}" v-text="editorData.content"></div>
+			:class="{'hide-text-view':editorData.focus}" 
+			v-text="editorData.content"></div>
+	<hpp-focus-wrap-text
+			v-if="editorData.selected"
+			:editor-data="editorData"></hpp-focus-wrap-text>
 	</div>
+
 </div>

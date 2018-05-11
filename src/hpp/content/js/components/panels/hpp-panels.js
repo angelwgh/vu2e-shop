@@ -6,9 +6,10 @@ define([
 	'golbal',
 	'js/components/panels/hpp-text-editor',
 	'js/components/panels/hpp-img-editor',
-	'text!view/panels/hpp-panels.html'
+	'text!view/panels/hpp-panels.html',
+	
 	],function (golbal,hppTextEditor,hppImgEditor,html) {
-		console.log(hppTextEditor)
+		// console.log(hppTextEditor)
 	return {
 		name: 'hpp-panels',
 		components: {
@@ -37,6 +38,7 @@ define([
 					min: -500,
 					handleAlloyTouch: null
 				},
+				currentEditors:[]
 
 			}	
 		},
@@ -63,6 +65,7 @@ define([
 					// console.log(vm.alloyTouchData.min)
 				})
 			},
+
 			formateEditModulesData: function () {
 				// 初始化模板数据，把xx%的字符串转成数值
 				this.editModules.forEach(function (module) {
@@ -82,6 +85,37 @@ define([
 						}
 					})
 				})
+			},
+
+			select: function (editor) {
+				// 选择编辑器
+				// console.log(editor)
+				// editor.selected = true
+				var list = this.currentEditors;
+
+				if(list.length == 0){
+					list.push(editor)
+				}else if(list.length == 1){
+					if(list[0] === editor){
+						editor.editorStatus = editor.editorStatus == 1 ? 2 : 1;
+						console.log(editor.editorStatus)
+						return
+					}else {
+						var oldVal = list.shift();
+						oldVal.selected = false;
+						list.push(editor)
+					}
+				}else if(list.length > 1){
+					for(var i = list.length - 1; i >= 0; i--){
+						list[i].selected = false;
+						list.pop()
+					}
+					list.push(editor)
+				}
+				// console.log(111)
+				editor.selected = true
+				editor.editorStatus = 1;
+
 			}
 
 			
