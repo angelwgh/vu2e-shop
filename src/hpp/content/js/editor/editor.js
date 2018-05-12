@@ -893,7 +893,11 @@
 					</div>\
 					</div>\
 					<div class="module-editor-tools"\
-						 v-if="showModuleEditorTools">\
+						 v-if="showModuleEditorTools"\
+						 :style="{\
+							top:moduleEditorToolsPosition.top + \'px\',\
+							left:moduleEditorToolsPosition.left + \'px\'\
+						 }">\
 						<div v-for="item in moduleToolsBar"\
 							 class="bar-item"\
 							 v-on:click="moduleEvent(item)">\
@@ -971,6 +975,10 @@
 				showSelectImg: false,
 				showSelectVideo: false,
 				showModuleEditorTools:false,
+				moduleEditorToolsPosition:{
+					left:0,
+					top:0,
+				},
 				// currentMudule: null, // 当前选中的模块
 				// currentEditor: null, // 当前选中的编辑器
 				currentType:'',	 // 当前选择模块的类型 是模块 还是 编辑器
@@ -1586,7 +1594,7 @@
 
 			longtouch(editorIndex){
 				// 长按函数
-
+				console.log(editorIndex)
 				if(editorIndex === this.editorIndex){
 					
 
@@ -1658,14 +1666,35 @@
 
 
 
+				// 模块长按事件
 				var detailContent = document.getElementById('J_detail_content');
 				var detailContentEvent = new AlloyFinger(detailContent, {
 					longTap:function (evt) {
+						console.log(evt.target)
+						if( evt.target.className == 'edit-module'){
+							var moduleIndex = parseInt(evt.target.id.match(/_(\d+)$/)[1])
+							if(moduleIndex != vm.moduleIndex){
+								vm.select(null,moduleIndex, -1, evt )
+							}
+								vm.showModuleEditorTools = true
+								vm.moduleEditorToolsPosition={
+									top:evt.changedTouches[0].clientY,
+									left:evt.changedTouches[0].clientX
+								}
+						}
+						
+
+
 						console.log(evt.target.id)
 						console.log(vm.moduleIndex)
-						if(vm.currentType == 'module' && evt.target.id == 'module_' + vm.moduleIndex){
-							vm.showModuleEditorTools = true
-						}
+						// if(vm.currentType == 'module' && evt.target.id == 'module_' + vm.moduleIndex){
+						// 	vm.showModuleEditorTools = true
+						// 	console.log(evt.changedTouches[0])
+						// 	vm.moduleEditorToolsPosition={
+						// 		top:evt.changedTouches[0].clientY,
+						// 		left:evt.changedTouches[0].clientX
+						// 	}
+						// }
 					},
 				})
 

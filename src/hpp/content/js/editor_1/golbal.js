@@ -3,6 +3,7 @@ define(function () {
 		var g = this;
 
 		g.init = function () {
+			g.top = 50
 			g.initHeaderStyle()
 		}
 
@@ -23,35 +24,35 @@ define(function () {
 		g.panel_data = [
 						{
 							editors:[
-								{
-									type: 'img',
-									componentName: 'hpp-img-editor',
-									locked:false,
-									selected: false,
-									editorStatus:1,
-									showTools:false,
-									focus:false,
-									src:'',
-									top:0,
-									left:0,
-									width: '100%',
-									height: 60,
-									rotate:0,
-									backgroundColor:'#ff5b83',
-									borderColor:'transparent',
-									borderWidth:0,
-									borderStyle:'solid',
-									borderRadiusWidth:30,
-									fixed:true,
-									borderTopLeftRadius_w:30,
-									borderTopLeftRadius_h:30,
-									borderTopRightRadius_w:30,
-									borderTopRightRadius_h:30,
-									borderBottomLeftRadius_w: 0,
-									borderBottomLeftRadius_h: 0,
-									borderBottomRightRadius_w:0,
-									borderBottomRightRadius_h:0,
-								},
+								// {
+								// 	type: 'img',
+								// 	componentName: 'hpp-img-editor',
+								// 	locked:false,
+								// 	selected: false,
+								// 	editorStatus:1,
+								// 	showTools:false,
+								// 	focus:false,
+								// 	src:'',
+								// 	top:0,
+								// 	left:0,
+								// 	width: '100%',
+								// 	height: 60,
+								// 	rotate:0,
+								// 	backgroundColor:'#ff5b83',
+								// 	borderColor:'transparent',
+								// 	borderWidth:0,
+								// 	borderStyle:'solid',
+								// 	borderRadiusWidth:30,
+								// 	fixed:true,
+								// 	borderTopLeftRadius_w:30,
+								// 	borderTopLeftRadius_h:30,
+								// 	borderTopRightRadius_w:30,
+								// 	borderTopRightRadius_h:30,
+								// 	borderBottomLeftRadius_w: 0,
+								// 	borderBottomLeftRadius_h: 0,
+								// 	borderBottomRightRadius_w:0,
+								// 	borderBottomRightRadius_h:0,
+								// },
 								{
 									type: 'text',
 									fixed:false,

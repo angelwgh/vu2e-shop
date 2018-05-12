@@ -1,0 +1,85 @@
+<div class="m-text-style">
+    <yd-layout>
+        <div>
+            <div class="flex font-style">
+                <el-select v-model="currentStyle.fontFamily" placeholder="请选择">
+                    <el-option v-for="item in styles.fontFamily"  :key="item"  :label="item"  :value="item"  :disabled="item == '设置字体'">
+                        </el-option> 
+                </el-select>
+                <el-select v-model="currentStyle.fontSize" placeholder="请选择">
+                    <el-option v-for="item in styles.fontSize"  :key="item"  :label="item"  :value="item"  :disabled="item == '字体大小'">
+                        </el-option>
+                </el-select>
+                <el-select v-model="currentStyle.letterSpacing" placeholder="请选择">
+                    <el-option v-for="item in styles.letterSpacing"  :key="item"  :label="item"  :value="item"  :disabled="item == '字间距'">
+                        </el-option>
+                </el-select>
+            </div>
+            <div class="text-content" >
+                <span class="text"  :style="{
+										fontFamily: currentStyle.fontFamily,
+										fontSize: currentStyle.fontSize + 'px',
+										letterSpacing: currentStyle.letterSpacing + 'px',
+										color: currentStyle.color,
+										lineHeight:currentStyle.lineHeight,
+										textAlign: currentStyle.textAlign,
+										webkitTextStrokeColor: currentStyle.webkitTextStrokeColor,
+										webkitTextStrokeWidth: currentStyle.webkitTextStrokeWidth + 'px'
+									}">
+								{{editor.content}}
+							</span>
+            </div>
+            <div class="paragraph-style flex">
+                <div class="f-color"  :class="{active: colorTarget == 'f-color'}"  v-on:click="pickColorTarget('f-color')">填色</div>
+                <div class="f-color"  :class="{active: colorTarget == 'b-color'}"  v-on:click="pickColorTarget('b-color')">描边</div>
+                <div class="t-align flex">
+                    <div class="left" v-on:click="setTextAlign('left')"><i class="iconfont icon-align-left"></i></div>
+                    <div class="center" v-on:click="setTextAlign('center')"><i class="iconfont icon-align-center"></i></div>
+                    <div class="right" v-on:click="setTextAlign('right')"><i class="iconfont icon-align-right"></i></div>
+                </div>
+                <div class="l-height"> 行距
+                    <span>{{currentStyle.lineHeight.toFixed(1)}}</span>
+                </div>
+                <div class="l-height-ctr" @click="setLineHeight('+')"> +
+                </div>
+                <div class="l-height-ctr" @click="setLineHeight('-')">
+                    <span>-</span>
+                </div>
+                <!-- <div class="text-align"></div> -->
+            </div>
+            <div class="colors">
+                <div class="title">主题颜色</div>
+                <div class="colors-group main-colors flex">
+                    <div class="color-item"  v-for="color in colors.mainColors"  :key="color"  :class="{white: color == '#ffffff'}"  :style="{
+										backgroundColor: color
+									}"  v-on:click="pickColor(color)"></div>
+                </div>
+                <div class="colors-group flex"  v-for="group in colors.otherColors">
+                    <div class="color-item"  v-for="color in group"  :key="color"  :class="{white: color == '#ffffff'}"  :style="{
+										backgroundColor: color
+									}"  v-on:click="pickColor(color)"></div>
+                </div>
+                <div class="title">标准颜色</div>
+                <div class="colors-group main-colors flex">
+                    <div class="color-item"  v-for="color in colors.standardColors"  :key="color"  :class="{white: color == '#ffffff'}"  :style="{
+										backgroundColor: color
+									}"  v-on:click="pickColor(color)"></div>
+                </div>
+                <div class="all-colors">
+                    <div class="flex">
+                        <div class="icon" v-on:click="openColorPicker">
+                            <img src="../../content/images/color_pcketor.png">
+                        </div>
+                        <div class="text" v-on:click="openColorPicker">更多颜色</div>
+                        <div class="right">
+                            <yd-button type="primary" v-on:click.native="saveStyle()">完成编辑</yd-button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </yd-layout>
+    <transition name="slide-left">
+       <!--  <color-picker v-if="showColorPicker"  v-on:change="changeColor"></color-picker> -->
+    </transition>
+</div>

@@ -64,10 +64,15 @@
 		</div>
 		<transition	v-for="item in popviews"
 		    name="slide-left"
-		    :key="item.id">
-			<div class="popview" v-if="item.show">
-				{{item.text}}
-			</div>
+		    v-bind:key="item.id">
+		    <component
+		    	v-bind:is="item.name"
+		    	v-bind:data="item.data"
+		    	v-bind:style="{
+					top: top + 'px'
+		    	}"
+		    	v-if="item.show"></component>
+			<!-- <hpp-text-style></hpp-text-style> -->
 		</transition>
 	</div>
 	
@@ -106,6 +111,7 @@
 			var app = new Vue({
 				el: '#app',
 				data: {
+					top: golbal.top,
 					// 头部导航栏数据
 					header_data: {
 						bgcolor: golbal.header_style.bgColor,
@@ -127,7 +133,7 @@
 						if(len == 0){
 							return this.header_data.title
 						}else {
-							return  this.popviews[len-1].title
+							return  this.popviews[len-1].title || this.header_data.title
 						}
 
 
@@ -138,6 +144,13 @@
 						this.popviews = []
 					},
 
+					openPopviews: function (data) {
+						data.show = false
+						this.popviews.push(data)
+						this.$nextTick(function () {
+							data.show = true
+						})
+					},
 					rightBtn: function () {
 						console.log('右边按钮')
 						// this.showPopview2 = true

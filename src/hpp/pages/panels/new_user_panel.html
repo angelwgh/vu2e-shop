@@ -255,6 +255,7 @@
 					console.log(this.imgArr)
 				},
 
+				// 把cavans转成图片
 				creatImgs: function () {
 					var height = this.height / this._num;
 					var sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight;
@@ -271,13 +272,31 @@
 						canvas.height = height;
 						sy = height * i;
 						ctx.drawImage(this._canvas, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight )
-
+						this.saveLocal(canvas.toDataURL())
 						this.imgArr.push(canvas.toDataURL())
 					}
 				},
 
+				// 把图片保存到本地
+				saveLocal: function (dataUrl) {
+					// util.Canvas2Image.saveAsImage(canvas)
+					var blob = dataURLtoBlob(dataUrl);
+					var url = URL.createObjectURL(blob)
+					src = 'http://pic2.sc.chinaz.com/Files/pic/pic9/201805/zzpic11760_s.jpg'
+					var a = document.createElement('a')
+					a.href = src;
+					// a.target="_blank"
+					a.download = new Date().getTime() + 'a.png'
+					document.body.appendChild(a)
+					// alert(a.download)
+					a.click()
+
+					document.body.removeChild(a)
+				}
+
 
 			}
+
 			Vue.use(vueAlloyTouch);
 			var app = new Vue({
 				el:'#app',
@@ -346,19 +365,24 @@
 						var el = document.getElementById('J_detail_content')
 						console.log(this.$refs.editor.$el)
 						html2canvas(el).then(function (canvas) {
-							
+							// util.Canvas2Image(canvas)
+
 							var saveImg = new SaveImg(canvas, vm.saveImgsNum)
 							vm.$dialog.loading.close();
 							// console.log(saveImg,3)
 							var image = new Image()
 							image.src = saveImg.imgArr[0]
+							// var src = image.src.replace('image/png', 'application/octet-stream');
+							// window.location.href = src
 
-							var a = document.createElement('a')
-							a.href = image.src;
-							a.download = 'a.jpg'
-							document.body.appendChild(a)
-							a.click()
-							document.body.removeChild(a)
+							// console.log(src)
+							// var a = document.createElement('a')
+							// a.href = image.src;
+							// a.download = new Date().getTime() + 'a.jpg'
+							// document.body.appendChild(a)
+							// a.click()
+							// document.body.removeChild(a)
+							// vm.saveLocal(image.src)
 							vm.saveImgs = saveImg.imgArr
 
 
@@ -386,6 +410,19 @@
 						if(typeof callback === 'function'){
 							callback(src)
 						}
+					},
+
+					// 保存到本地
+					saveLocal: function (src) {
+						// return
+						// src = 'http://pic2.sc.chinaz.com/Files/pic/pic9/201805/zzpic11760_s.jpg'
+						var a = document.createElement('a')
+						a.href = src;
+						a.download = new Date().getTime() + 'a.png'
+						document.body.appendChild(a)
+						alert(a.download)
+						a.click()
+						document.body.removeChild(a)
 					}
 				},
 

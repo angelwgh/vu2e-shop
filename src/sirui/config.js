@@ -288,10 +288,120 @@ function TradeMark() {
 	}
 }
 
+function InternationTm(){
+	Database.call(this)
+	
+	this.data = {
+		list: [
+			{
+				id: 1,
+				name: 'Russia',
+				name_cn: '俄罗斯注册',
+				imgsrc: ''
+			},
+			{
+				id: 2,
+				name: 'Vietnam',
+				name_cn: '越南商标注册',
+				imgsrc: ''
+			},
+			{
+				id: 3,
+				name: 'French',
+				name_cn: '法国商标注册',
+				imgsrc: ''
+			},
+			{
+				id: 4,
+				name: 'India',
+				name_cn: '印度商标注册',
+				imgsrc: ''
+			},
+			{
+				id: 5,
+				name: 'NewZealand',
+				name_cn: '新西兰商标注册',
+				imgsrc: ''
+			},
+			{
+				id: 6,
+				name: 'Germany',
+				name_cn: '德国商标注册',
+				imgsrc: ''
+			},
+			{
+				id: 7,
+				name: 'Korea',
+				name_cn: '韩国商标注册',
+				imgsrc: ''
+			},
+			{
+				id: 8,
+				name: 'Afghanistan',
+				name_cn: '阿富汗商标注册',
+				imgsrc: ''
+			},
+			{
+				id: 9,
+				name: 'Bangladesh',
+				name_cn: '孟加拉国商标注册',
+				imgsrc: ''
+			},
+			{
+				id: 10,
+				name: 'Egypt',
+				name_cn: '埃及商标注册',
+				imgsrc: ''
+			},
+			{
+				id: 11,
+				name: 'Pakistan',
+				name_cn: '巴基斯坦商标注册',
+				imgsrc: ''
+			},
+			{
+				id: 12,
+				name: 'Italy',
+				name_cn: '意大利商标注册',
+				imgsrc: ''
+			},
+			{
+				id: 13,
+				name: 'England',
+				name_cn: '英国商标注册',
+				imgsrc: ''
+			},
+			{
+				id: 14,
+				name: 'EU',
+				name_cn: '欧盟商标注册',
+				imgsrc: ''
+			},
+			{
+				id: 15,
+				name: 'USA',
+				name_cn: '美国商标注册',
+				imgsrc: ''
+			},
+			{
+				id: 16,
+				name: 'Japan',
+				name_cn: '日本商标注册',
+				imgsrc: ''
+			},
+			{
+				id: 17,
+				name: 'Thailand',
+				name_cn: '泰国商标注册',
+				imgsrc: ''
+			},
+		]
+	}
+}
 inherit(Agent, Database)
 inherit(Copyright, Database)
 inherit(TradeMark, Database)
-
+inherit(InternationTm, Database)
 
 
 ;(function (root, factory) {
@@ -487,6 +597,8 @@ inherit(TradeMark, Database)
 				'jsonBody':[copyright.findOne('id',id)]
 			})
 		}
+
+		// 
 	};
 
 

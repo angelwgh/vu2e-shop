@@ -44,8 +44,12 @@ define([
 			}	
 		},
 		methods:{
-			longTap: function () {
+			longTap: function (evt) {
 				// 长按
+				console.log(evt.target.className)
+				if(util.hasClass(evt.target, 'corner')){
+					return
+				}
 				var editorData = this.editorData;
 				if(editorData.locked){
 
@@ -66,8 +70,18 @@ define([
 
 				if(evt.target.className == 'tool'){
 					// 触发工具条点击事件
+					// var tool
+					console.log(evt.target.dataset.type)
+					var obj = {
+						type: evt.target.dataset.type,
+						data: editorData,
+						moduleIndex: this.moduleIndex,
+						editorIndex: this.editorIndex
+					}
+					this.$emit('toolsclick',obj )
+					// this.$root.openPopviews(obj)
 					editorData.showTools = false;
-					this.$emit('toolTap')
+					// this.$emit('toolTap')
 					return
 				}
 
@@ -83,7 +97,7 @@ define([
 				this.$emit('tap',this.editorData)	
 			},
 			pressMove: function (evt) {
-				console.log(evt)
+				// console.log(evt)
 				if(this.editorData.editorStatus !== 2){
 					// 黑点时可以拖动改变编辑器的位置
 					return
@@ -147,7 +161,7 @@ define([
 					
 				})
 
-			}
+			},
 
 			changeSize: function () {
 				var editorData = this.editorData;
@@ -186,8 +200,11 @@ define([
 					this.editorData.showTools = false;
 				}
 				
-			}
+			},
 
+			'editorData.width': function () {
+				this.changeSize()
+			},
 			'editorData.height': function () {
 				this.changeSize()
 			}

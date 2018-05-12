@@ -8,7 +8,8 @@
 		<div v-for="item in toolsBar"
 			 class="edit-item"
 			>
-			 <span class="tool">{{item.name}}</span>
+			 <span class="tool"
+			 	   :data-type="item.type">{{item.name}}</span>
 		</div>		
 	</div>
 	<div class="conners">

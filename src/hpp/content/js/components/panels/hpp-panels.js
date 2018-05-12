@@ -10,6 +10,21 @@ define([
 	
 	],function (golbal,hppTextEditor,hppImgEditor,html) {
 		// console.log(hppTextEditor)
+
+	var  EVENTMAP = {
+		'delete': 'remove',
+		'set-style': 'setStyle',
+		'set-color': 'setColor',
+		'copy': 'copy',
+		'paste': 'paste',
+		'lock' : 'lock',
+		'unlock': 'unlock',
+		'photo': 'selectImg',
+		'video': 'selectVideo',
+		'align-center': 'alignCenter',
+		'align-left':'alignLeft',
+		'align-right': 'alignRight'
+	}
 	return {
 		name: 'hpp-panels',
 		components: {
@@ -38,7 +53,8 @@ define([
 					min: -500,
 					handleAlloyTouch: null
 				},
-				currentEditors:[]
+				currentEditors:[],
+				textCopyData: null
 
 			}	
 		},
@@ -116,7 +132,61 @@ define([
 				editor.selected = true
 				editor.editorStatus = 1;
 
-			}
+			},
+
+			toolsclick: function (options) {
+				// console.log(options)
+				this[EVENTMAP[options.type]](options)
+			},
+			copy: function (options) {
+				var obj = {}
+				for(var key in options.data){
+					if(key != 'left' && key !="top"){
+						obj[key] = options.data[key]
+					}
+				}
+				if(obj.type = 'text'){
+					this.textCopyData = obj
+				}
+				
+				// console.log(obj)
+				// console.log('复制')
+			},
+			paste: function (options) {
+				var maxHeight = this.editModules[options.moduleIndex].height;
+				// console.log(maxHeight)
+				if(options.data.type === 'text'){
+					if(this.textCopyData != null){
+						for(var key in this.textCopyData){
+							options.data[key] = this.textCopyData[key]
+						}
+					}
+				}
+
+				if(options.data.height > maxHeight){
+					options.data.height = maxHeight
+				}
+				console.log()
+
+
+			},
+			setStyle: function(options){
+				// 设置文字样式
+				var obj = {
+					title: '应用',
+					data: options.data,
+					name: 'hpp-text-style'
+				}
+
+				this.$root.openPopviews(obj)
+			},
+
+			remove: function (options) {
+				this.editModules[options.moduleIndex].editors.splice(options.editorIndex, 1)
+				console.log(this.editModules)
+			},
+
+			
 
 			
 		},

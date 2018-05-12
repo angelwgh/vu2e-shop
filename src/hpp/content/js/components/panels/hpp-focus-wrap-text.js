@@ -117,11 +117,22 @@ define(['text!view/panels/hpp-focus-wrap-text.html'], function (html) {
 					}
 				return obj;
 			},
+			
 			width: function () {
 				return this.editorData.width;	
 			},
 			height: function () {
 				return this.editorData.height;	
+			},
+			lines: function () {
+				var width = this.width,
+					height = this.height;
+				return {
+					left: {
+						name:'left',
+						
+					}
+				}
 			},
 			left: function () {
 				return this.editorData.left;

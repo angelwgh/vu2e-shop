@@ -2,10 +2,12 @@
 
 define([
 		'js/components/commom/hpp-navBar',
-		'js/components/panels/hpp-panels'
+		'js/components/panels/hpp-panels',
+		'js/components/panels/hpp-text-style'
 	],function (
 			hppNavbar,
-			hppPanels
+			hppPanels,
+			hppTextStyle
 		) {
 
 	// console.log(hppNavbar)
@@ -15,6 +17,7 @@ define([
 		c.install = function (Vue) {
 			Vue.component(hppNavbar.name,hppNavbar)
 			Vue.component(hppPanels.name,hppPanels)
+			Vue.component(hppTextStyle.name,hppTextStyle)
 		}
 	}
 
