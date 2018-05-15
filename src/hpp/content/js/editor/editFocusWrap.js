@@ -124,10 +124,7 @@
             }
         ],
         'img-fixed': [
-            {
-                type: 'delete',
-                name: '删除'
-            },
+          
             {
                 type: 'photo',
                 name: '照片',
@@ -140,6 +137,10 @@
                 type: 'set-color',
                 name: '填色',
             },
+            {
+                type: 'delete',
+                name: '删除'
+            }
         ],
         'img-align': [
             {
@@ -153,6 +154,14 @@
             {
                 type: 'align-right',
                 name:'居右'
+            },
+            {
+                type: 'copy',
+                name: '复制'
+            },
+            {
+                type: 'paste',
+                name: '粘贴',
             },
             {
                 type: 'lock',
@@ -331,6 +340,10 @@
             focusWrapTop: {
                 type: Number,
                 default: 0
+            },
+            blockModel: {
+                type: Boolean,
+                default: false
             }
 
         },
@@ -761,23 +774,12 @@
             },
             changeModel: function() {
                 console.log(1)
-                this.focusWrapData.model = this.focusWrapData.model === 1 ? 2 : 1;
+                if(!this.blockModel){
+                    this.focusWrapData.model = this.focusWrapData.model === 1 ? 2 : 1;
+                }
+                
                 this.focusWrapData.showRotate = false;
                 this.focusWrapData.showTools = false;
-            }
-        },
-        watch: {
-            width: function(val) {
-                // console.log(val)
-                // console.log(new Corner(this.width, this.height))
-            },
-
-            'focusWrapData.model': function(val) {
-                // console.log(val)
-                // // this.corners.changeAllModel(val)
-                // console.log(this)
-                // console.log(val)
-                // console.log(this.focusWrapEditor.type)
             }
         },
         mounted() {

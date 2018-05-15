@@ -30,13 +30,13 @@
     <div class="m-header">
     </div>
     <!-- 页头结束 -->
-    <div class="bg_gray">
+    <div class="bg_gray m-sbzc-show">
         <div class="content_main mark_market_box">
             <div class="mark_market mt_25 clearfix">
-                <div class="left mark_market_main" id="J_detail_view">
+                <div class="mark_market_main" id="J_detail_view" style="width: 1000px;">
                     
                 </div>
-                <div class="mark_aside_r right"></div>
+              
             </div>
         </div>
     </div>
@@ -45,21 +45,56 @@
     </div>
     <!-- 底部信息结束 -->
     <!-- 详情模板 -->
-    <script type="text/template">
-        <div class="mark_header">
-            <div class="left imagebox mr_20">
-                <img src="{{=it.imgsrc}}" alt=""  style="width:252px;height:302px:" onerror="this.src='/images/default.png';this.onerror=null">
+    <script type="text/template" id="J_detail_temp">
+        <div class="mark-header-box clearfix">
+            <div class="mark_header">
+                <div class="left imagebox mr_20" style="width:400px;">
+                    <img src="{{=it.jsonBody[0].imgsrc}}" alt=""  style="width:100%;" onerror="this.src='/images/default.png';this.onerror=null">
+                </div>
+            </div>
+            <div class="left clearfix">
+                <h3 class="title mb_10" style="width: 500px;">
+                    <span class="brand_name">{{=it.jsonBody[0].name_cn}}</span>
+                    <div style="color: #999; font-size: 12px;margin-top: 10px;">线上提交材料，为你快速注册公司</div>
+                </h3>
+                <div class="btns-list-group clearfix" id="J_state_list">
+                    {{for(var i=0; i<it.list.length; i++){ }}
+                        <div class="list-item left {{=it.list[i].name==it.jsonBody[0].name?'active':''}}" title="{{=it.list[i].info}}" data-placement="bottom">
+                            <a href="./sbzc_show.html?type={{=it.list[i].name}}">{{=it.list[i].name_cn}}</a>
+                        </div>
+                    {{ } }}
+                </div>
             </div>
         </div>
-        <div class="left clearfix">
-            <h3 class="title mb_10">
-                <span class="brand_name left">{{=it.title}}</span>
-                <span class="subhead">{{=it.subhead}}</span>
-            </h3>
-            <div class="list-group">
-
+        <div class="mark-body-box" style="margin-top:20px;">
+            <div class="clearfix" style="margin-bottom: 20px;">
+                <div  class="left" style="padding:5px 15px; border-top: 2px solid #ca0000">服务介绍</div>
+            </div>
+            {{for(var i=0; i<it.jsonBody[0].imgs.length; i++){ }}
+            <div>
+                <img src="{{=it.jsonBody[0].imgs[i]}}" alt="">
+            </div>
+            {{}}}
+            <div>
+                <img src="../content/images/internation/EU_3.jpg" alt="">
+            </div>
+            <div>
+                <img src="../content/images/internation/EU_4.jpg" alt="">
+            </div>
+            <div>
+                <img src="../content/images/internation/EU_5.jpg" alt="">
+            </div>
+            <div>
+                <img src="../content/images/internation/EU_6.jpg" alt="">
+            </div>
+            <div>
+                <img src="../content/images/internation/EU_7.jpg" alt="">
+            </div>
+            <div>
+                <img src="../content/images/internation/EU_8.jpg" alt="">
             </div>
         </div>
+        
     </script>
     <script src="../content/js/commom.js"></script>
     <script src="../content/js/util.js"></script>
@@ -110,8 +145,8 @@
             getListFromServer: function() {
                 var self = this;
                 // var data = this.searchData
-                // console.log(data)
-                configData.getDetail({
+                console.log(this)
+                configData.getInternationTm({
                     data: {
                         id:this.id,
                         type: this.type
@@ -128,31 +163,14 @@
             },
 
             renderDetail: function (data) {
-                var temptext = doT.template($('#J_'+this.type+'_detail_temp').html())
-                $('#J_detail_view').html(temptext(data.jsonBody[0]))
-
-
-                $(".mark_details_nav ").find("li").click(function() {
-                    var n = $(this).index();
-                    var tab_list = $(".mark_details .table");
-                    $(this).addClass("active");
-                    $(this).siblings().removeClass("active");
-                    tab_list.hide();
-                    tab_list.eq(n).show();
+                var temptext = doT.template($('#J_detail_temp').html())
+                $('#J_detail_view').html(temptext(data))
+                
+                $('#J_state_list').find('.list-item').each(function(index, elem){
+                    $(elem).tooltip()
+                   console.log($(elem).tooltip)
                 })
-            },
-            // 渲染商标详情数据
-            renderMarkDetail: function(data) {
-                var temptext = doT.template($('#J_mark_detail_temp').html())
-                $('#J_detail_view').html(temptext(data.jsonBody[0]))
-
-            },
-
-            rendePatentDetail: function (data) {
-                var temptext = doT.template($('#J_patent_detail_temp').html())
-                $('#J_detail_view').html(temptext(data.jsonBody[0]))
             }
-
         };
 
 

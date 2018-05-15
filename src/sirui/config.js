@@ -297,103 +297,188 @@ function InternationTm(){
 				id: 1,
 				name: 'Russia',
 				name_cn: '俄罗斯注册',
-				imgsrc: ''
+				imgsrc: '../content/images/internation/Russia.jpg',
+				imgs:[
+					'../content/images/internation/Russia_1.jpg',
+					'../content/images/internation/Russia_2.jpg',
+				],
+				info:'直接向俄罗斯商标注册机构递交商标申请材料，保护在俄罗斯商品的权益。'
 			},
 			{
 				id: 2,
 				name: 'Vietnam',
 				name_cn: '越南商标注册',
-				imgsrc: ''
+				imgsrc: '../content/images/internation/Vietnam.jpg',
+				info: '注册越南商标，保护越南市场利益。',
+				imgs:[
+					'../content/images/internation/Vietnam_1.jpg',
+					'../content/images/internation/Vietnam_2.jpg',
+				],
 			},
 			{
 				id: 3,
 				name: 'French',
 				name_cn: '法国商标注册',
-				imgsrc: ''
+				imgsrc: '../content/images/internation/French.jpg',
+				imgs:[
+					'../content/images/internation/French_1.jpg',
+					'../content/images/internation/French_2.jpg',
+				],
+				info: '注册法国商标，保护法国市场权益'
 			},
 			{
 				id: 4,
 				name: 'India',
 				name_cn: '印度商标注册',
-				imgsrc: ''
+				imgsrc: '../content/images/internation/India.jpg',
+				imgs:[
+					'../content/images/internation/India_1.jpg',
+					'../content/images/internation/India_2.jpg',
+				],
+				info:'注册印度商标，保证印度市场权益'
 			},
 			{
 				id: 5,
 				name: 'NewZealand',
 				name_cn: '新西兰商标注册',
-				imgsrc: ''
+				imgsrc: '../content/images/internation/NewZealand.jpg',
+				imgs:[
+					'../content/images/internation/NewZealand_1.jpg',
+					'../content/images/internation/NewZealand_2.jpg',
+				],
+				info:'直接向新西兰商标局递交商标注册材料，保证新西兰市场权益'
 			},
 			{
 				id: 6,
 				name: 'Germany',
 				name_cn: '德国商标注册',
-				imgsrc: ''
+				imgsrc: '../content/images/internation/Germany.jpg',
+				imgs:[
+					'../content/images/internation/Germany_1.jpg',
+					'../content/images/internation/Germany_2.jpg',
+				],
+				info: '注册德国商标，确保德国市场权益'
 			},
 			{
 				id: 7,
 				name: 'Korea',
 				name_cn: '韩国商标注册',
-				imgsrc: ''
+				imgsrc: '../content/images/internation/Korea.jpg',
+				imgs:[
+					'../content/images/internation/Korea_1.jpg',
+					'../content/images/internation/Korea_2.jpg',
+				],
+				info:'韩国商标注册的种类包括：商品商标、服务商标、集体商标、立体商标、颜色商标。'
 			},
 			{
 				id: 8,
 				name: 'Afghanistan',
 				name_cn: '阿富汗商标注册',
-				imgsrc: ''
+				imgsrc: '../content/images/internation/Afghanistan.jpg',
+				imgs:[
+					'../content/images/internation/Afghanistan_1.jpg',
+					'../content/images/internation/Afghanistan_2.jpg',
+				],
+				info: '注册阿富汗商标，确保阿富汗市场利益'
 			},
 			{
 				id: 9,
 				name: 'Bangladesh',
 				name_cn: '孟加拉国商标注册',
-				imgsrc: ''
+				imgsrc: '../content/images/internation/Bangladesh.jpg',
+				imgs:[
+					'../content/images/internation/Bangladesh_1.jpg',
+					'../content/images/internation/Bangladesh_2.jpg',
+				],
+				info:'注册孟加拉国商标，确保孟加拉国市场权益'
 			},
 			{
 				id: 10,
 				name: 'Egypt',
 				name_cn: '埃及商标注册',
-				imgsrc: ''
+				imgsrc: '../content/images/internation/Egypt.jpg',
+				imgs:[
+					'../content/images/internation/Egypt_1.jpg',
+					'../content/images/internation/Egypt_2.jpg',
+				],
+				info:'注册埃及商标，确保埃及市场利益'
 			},
 			{
 				id: 11,
 				name: 'Pakistan',
 				name_cn: '巴基斯坦商标注册',
-				imgsrc: ''
+				imgsrc: '../content/images/internation/Pakistan.jpg',
+				imgs:[
+					'../content/images/internation/Pakistan_1.jpg',
+					'../content/images/internation/Pakistan_2.jpg',
+				],
+				info: '注册巴基斯坦商标，确保巴基斯坦公司利益'
 			},
 			{
 				id: 12,
 				name: 'Italy',
 				name_cn: '意大利商标注册',
-				imgsrc: ''
+				imgsrc: '../content/images/internation/Italy.jpg',
+				imgs:[
+					'../content/images/internation/Italy_1.jpg',
+					'../content/images/internation/Italy_2.jpg',
+				],
+				info: '注册意大利商标，确保意大利市场权益'
 			},
 			{
 				id: 13,
 				name: 'England',
 				name_cn: '英国商标注册',
-				imgsrc: ''
+				imgsrc: '../content/images/internation/England.jpg',
+				imgs:[
+					'../content/images/internation/England_1.jpg',
+					'../content/images/internation/England_2.jpg',
+				],
+				info: '注册英国商标，保证英国市场利益'
 			},
 			{
 				id: 14,
 				name: 'EU',
 				name_cn: '欧盟商标注册',
-				imgsrc: ''
+				imgsrc: '../content/images/internation/EU.jpg',
+				imgs: [
+					'../content/images/internation/EU_1.jpg',
+					'../content/images/internation/EU_2.jpg'
+				],
+				info: '只须申请注册一次，即可在整个欧盟的二十七个成员国使用该商标。较之于在各个成员国分别提出申请，费用大幅度减少。'
 			},
 			{
 				id: 15,
 				name: 'USA',
 				name_cn: '美国商标注册',
-				imgsrc: ''
+				imgsrc: '../content/images/internation/USA.jpg',
+				imgs:[
+					'../content/images/internation/USA_1.jpg',
+					'../content/images/internation/USA_2.jpg',
+				],
+				info: '在美国能用作商标的范围十分广泛。商标可由人们在商业中使用的或打算使用的用来表示或识别其商品与他人商品以及表示商品来源的文字、名称、符号、图形或其任何组合构成。'
 			},
 			{
 				id: 16,
 				name: 'Japan',
 				name_cn: '日本商标注册',
-				imgsrc: ''
+				imgsrc: '../content/images/internation/Japan.jpg',
+				imgs:[
+					'../content/images/internation/Japan_1.jpg',
+					'../content/images/internation/Japan_2.jpg',
+				],
+				info: '日本的商标权，采用建立在专利局（特许厅）的核准注册基础上而得以生效的"注册原则"。'
 			},
 			{
 				id: 17,
 				name: 'Thailand',
 				name_cn: '泰国商标注册',
-				imgsrc: ''
+				imgsrc: '../content/images/internation/Thailand.jpg',
+				imgs:[
+					'../content/images/internation/Thailand_1.jpg',
+					'../content/images/internation/Thailand_2.jpg',
+				],
+				info: '直接向泰国商标注册机构递交商标注册申请，保护商标在泰国市场的权益。'
 			},
 		]
 	}
@@ -411,7 +496,7 @@ inherit(InternationTm, Database)
 	var agent = new Agent()
 	var trademark = new TradeMark()
 	var copyright = new Copyright();
-
+	var internationTm = new InternationTm()
 	function ConfigData() {
 		this.init()
 	}
@@ -596,6 +681,22 @@ inherit(InternationTm, Database)
 			return Mock.mock({
 				'jsonBody':[copyright.findOne('id',id)]
 			})
+		},
+
+		getInternationTm: function (data) {
+			// console.log(id)
+			var type = data.data.type
+			var success = data.success || this.noop
+			console.log(type)
+			var mock =   Mock.mock({
+				'jsonBody':[internationTm.findOne('name', type)],
+				'list':internationTm.find()
+			})
+
+			setTimeout(function () {
+				success(mock)
+			})
+			
 		}
 
 		// 

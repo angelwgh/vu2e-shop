@@ -280,6 +280,7 @@
 						 	fontFamily: editorData.fontFamily,\
 						 	fontSize: editorData.fontSize + \'px\',\
 						 	letterSpacing: editorData.letterSpacing + \'px\',\
+						 	textAlign: editorData.textAlign || \'left\',\
 						 	color: editorData.color,\
 						 	webkitTextStrokeColor: editorData.webkitTextStrokeColor,\
 						 	webkitTextStrokeWidth: editorData.webkitTextStrokeWidth + \'px\'\
@@ -287,16 +288,20 @@
 						<textarea :style="{\
 							transformOrigin:\'0px 0px\',\
 							transform: \'scale(\'+editorData.scaleX+\',\'+editorData.scaleY+\')\',\
-							width: viewWidth + \'px\',\
-							height: viewHeight + \'px\'\
+							textAlign: editorData.textAlign || \'left\',\
+							width: initSize.width + \'px\',\
+							height: initSize.height + \'px\'\
 						}"  v-model="editorData.content"\ v-show="editorData.focus"></textarea>\
 						<div class="text-view"\
 							 :style="{\
 							 	transformOrigin:\'0px 0px\',\
+							 	width: initSize.width + \'px\',\
+							 	minHeight: initSize.height+  \'px\',\
 								transform: \'scale(\'+editorData.scaleX+\',\'+editorData.scaleY+\')\',\
 							}"\
 							:class="{\'hide-text-view\':editorData.focus}" v-text="editorData.content"></div>\
 					</div>\
+					<div style="display: none">{{initSize.width}}</div>\
 					</div>',
 		props:{
 			editorData:{
@@ -304,6 +309,9 @@
 				default: function () {
 					return {}
 				}
+			},
+			module: {
+				type: Object
 			},
 			moduleIndex: {
 				type: Number
@@ -323,15 +331,33 @@
 			return {
 				longtouchTimeout: null,
 				viewWidth:0,
-				viewHeight:0
+				viewHeight:0,
+				initSize: null
 			}
 		},
 		computed: {
 			showMask: function() {
 				// return this.editorData !== this.currentEditor || !editorData.focus
 			},
+			
 		},
 		methods: {
+			init: function () {
+				this.getInitSize()
+			},
+			maxHeight: function () {
+				return this.module.height	
+			},
+			getInitSize: function () {
+				/**
+				*	获取初始尺寸
+				*/
+				var data = this.editorData;
+				this.initSize = {
+						width: data.width / data.scaleX,
+						height: data.height / data.scaleY
+					}
+			},
 			select () {
 				// console.log(this.moduleIndex)
 				this.$emit('select', this.editorData, this.moduleIndex, this.editorIndex)
@@ -364,7 +390,7 @@
 	        	var editorData = this.editorData
 	        	var textarea = el.getElementsByTagName('textarea')[0]
 	        	var textView = el.getElementsByClassName('text-view')[0]
-	        	console.log(el)
+	        	// console.log(el)
 	        	var elEvents = new AlloyFinger(el, {
 	        		longTap: this.longtouch,
 	        		tap: this.select
@@ -391,17 +417,27 @@
 	        	var app = document.getElementById('app')
 	        	app.scrollTop = 0;
 				this.$nextTick(function () {
-					editorData.width =  textView.offsetWidth * editorData.scaleX || editorData.defaultWidth;
+					this.initSize.height = textView.offsetHeight
+					
+					editorData.height = this.initSize.height * editorData.scaleY;
+
+					util.checkChange(editorData, this.module)
+					this.changeScale()
+					console.log('textView.offsetHeight='+textView.offsetHeight)
+					// console.log(textView.offsetHeight)
+
+
+					// editorData.width =  textView.offsetWidth * editorData.scaleX || editorData.defaultWidth;
 					// console.log(111111111)
-					editorData.height = textView.offsetHeight * editorData.scaleY || editorData.defaultHeight * editorData.scaleY;
+					// editorData.height = textView.offsetHeight * editorData.scaleY || editorData.defaultHeight * editorData.scaleY;
 					// console.log(editorData.height)
-					vm.setTextareaSize()
+					// vm.setTextareaSize()
 					// editorData.height = height * editorData.scaleY
 					// console.log(textView.offsetHeight)
 					// console.log(window.innerWidth - editorData.left - editorData.width)
-					if(window.innerWidth - editorData.left - editorData.width<0){
-						editorData.content = content.substr(0, content.length - 1); 
-					}
+					// if(window.innerWidth - editorData.left - editorData.width<0){
+					// 	editorData.content = content.substr(0, content.length - 1); 
+					// }
 					if(typeof fn === "function"){
 						fn.call(vm)
 					}
@@ -411,15 +447,19 @@
 
 	        },
 
-	        changeSize: function () {
+	        // 设置文字形变大小
+	        changeScale: function () {
 	        	var editorData = this.editorData;
-	        	var el = this.$el;
-	        	var textView = el.getElementsByClassName('text-view')[0];
-	        	var scaleX, scaleY;
-	        	if(!editorData.content) return;
+	        	// var el = this.$el;
+	        	// var textView = el.getElementsByClassName('text-view')[0];
+	        	// var scaleX, scaleY;
+	        	// if(!editorData.content) return;
+
 	        	this.$nextTick(function () {
-	        		editorData.scaleY = editorData.height / textView.offsetHeight || 0
-	        		editorData.scaleX = editorData.width / textView.offsetWidth || 0
+	        		console.log(editorData.scaleY)
+	        		editorData.scaleY = editorData.height / this.initSize.height || 0
+	        		editorData.scaleX = editorData.width / this.initSize.width || 0
+	        		console.log(editorData.scaleY)
 	        	})
 
 	        },
@@ -472,15 +512,19 @@
 				this.editorData.left = left
 			}
 		},
+		created: function () {
+			this.init()
+		},
 		mounted: function () {
+			
 			var vm = this;
 
 			this.$nextTick(function () {
-				vm.addEvent()
-				vm.setTextareaSize()
-				vm.setSize(function () {
-					vm.setTextAlign()
-				})
+				this.addEvent()
+				this.setTextareaSize()
+				// vm.setSize(function () {
+				// 	vm.setTextAlign()
+				// })
 				
 			})
 		},
@@ -497,10 +541,10 @@
 				this.setSize()
 			},
 			'editorData.width': function () {
-				this.changeSize()
+				this.changeScale()
 			},
 			'editorData.height': function () {
-				this.changeSize()
+				this.changeScale()
 			}
 		}
 		// watch: {
@@ -738,7 +782,7 @@
 			// }),
 			setTextAlign: function (align) {
 				this.currentStyle.textAlign = align
-				this.$emit('set-text-align', align)
+				// this.$emit('set-text-align', align)
 			},
 			setLineHeight: function (type) {
 				// console.log(evt)
@@ -867,6 +911,7 @@
 										:showBorder="showBorder"\
 										:key="editorIndex"\
 										:editorData="editor"\
+										:module="module"\
 										:focusWrapData="focusWrapData"\
 										:currentEditor="currentEditor"\
 										:moduleIndex="cmoduleIndex"\
@@ -895,8 +940,8 @@
 					<div class="module-editor-tools"\
 						 v-if="showModuleEditorTools"\
 						 :style="{\
-							top:moduleEditorToolsPosition.top + \'px\',\
-							left:moduleEditorToolsPosition.left + \'px\'\
+							top:moduleToolsBarPositions.top + \'px\',\
+							left:moduleToolsBarPositions.left + \'px\'\
 						 }">\
 						<div v-for="item in moduleToolsBar"\
 							 class="bar-item"\
@@ -930,6 +975,7 @@
 					</transition>\
 					<transition name="slide-left">\
 						<select-img v-if="showSelectImg"\
+							:module="currentMudule"\
 							:editorData=\'focusWrapEditor\'\
 							v-on:close="closeTopWin"\
 							></select-img>\
@@ -1000,10 +1046,7 @@
 					locked: false,
 				},
 				focusWrapData:null,
-				clipboard:{
-					text:null,
-					img:null
-				},
+				clipboard:null,
 				alloyTouchData: {
 					options: {
 						touch: "",
@@ -1026,8 +1069,17 @@
 					{
 						type: 'delete',
 						name: '删除'
-					},{
-						type: 'cancel',
+					},
+					{
+						type:'function',
+						name: '功能',
+					},
+					{
+						type:'paste',
+						name: '粘贴'
+					},
+					{
+						type: 'cancle',
 						name:'取消'
 					}
 				],
@@ -1085,6 +1137,22 @@
 				var w = this.currentEditor.width,
 				    h = this.currentEditor.height;
 				    return w > h ? h / 2 : w / 2
+			},
+			moduleToolsBarPositions: function () {
+				console.log(this.moduleEditorToolsPosition)
+				var obj = this.moduleEditorToolsPosition
+				var bar = this.moduleToolsBar
+				var left = obj.left;
+				var winWidth =golbal.width
+				var width = this.moduleToolsBar.length * 55;
+				if(left + width > winWidth){
+					left = winWidth - width
+				}
+				console.log(this.winWidth)
+				return {
+					top: obj.top,
+					left: left
+				}
 			}
 		},
 
@@ -1350,6 +1418,8 @@
 
 			},
 
+			// 复制
+
 			copy: function () {
 				// 复制
 				console.log(this.currentEditor)
@@ -1358,7 +1428,7 @@
 				for(var key in editor){
 					obj[key] = editor[key]
 				}
-				this.clipboard[editor.type] = obj
+				this.clipboard = obj
 
 				console.log(this)
 
@@ -1366,13 +1436,37 @@
 
 			paste: function () {
 				// 粘贴
-				var editor = this.currentEditor
-				var obj = this.clipboard[editor.type]
-
-				for(var key in obj) {
-					editor[key] = obj[key]
+				var editor = this.currentEditor;
+				var module = this.currentMudule;
+				var paste = this.clipboard;
+				console.log(module)
+				if(paste == null) {
+					return
 				}
-				this.setOptions(obj)
+				console.log(editor)
+				if(editor){
+					for(var key in paste) {
+						if(key != 'left' && key != 'top'){
+							editor[key] = paste[key]
+						}
+						
+					}
+				}else if(module !=null){
+					var position = this.moduleEditorToolsPosition;
+					var obj = {};
+					for(var key in paste){
+						obj[key] = paste[key];
+						
+					}
+					obj.top = position.top;
+					obj.left = position.left
+					obj.textAlign = ''
+					module.editors.push(obj)
+					console.log(this.moduleEditorToolsPosition)
+
+				}
+				
+				this.setOptions(paste)
 			},
 
 			lock: function () {
@@ -1673,14 +1767,15 @@
 						console.log(evt.target)
 						if( evt.target.className == 'edit-module'){
 							var moduleIndex = parseInt(evt.target.id.match(/_(\d+)$/)[1])
-							if(moduleIndex != vm.moduleIndex){
+							if(moduleIndex != vm.moduleIndex || vm.editorIndex != -1){
+								console.log(moduleIndex)
 								vm.select(null,moduleIndex, -1, evt )
 							}
-								vm.showModuleEditorTools = true
-								vm.moduleEditorToolsPosition={
-									top:evt.changedTouches[0].clientY,
-									left:evt.changedTouches[0].clientX
-								}
+							vm.showModuleEditorTools = true
+							vm.moduleEditorToolsPosition={
+								top:evt.changedTouches[0].clientY,
+								left:evt.changedTouches[0].clientX
+							}
 						}
 						
 
@@ -1697,6 +1792,7 @@
 						// }
 					},
 				})
+
 
 				window.onresize= function () {
 					// alert(window.innerHeight)
@@ -1722,6 +1818,14 @@
 					}
 					this.initAlloyTouchData();
 					this.handleAlloyTouch.to(-this.moduleTop)
+				}
+
+				if(item.type === 'function'){
+					this.openFunctionBar()
+				}
+
+				if(item.type === 'paste'){
+					this.paste()
 				}
 
 				this.showModuleEditorTools = false;

@@ -81,7 +81,7 @@
 	<div class="m-login-box flex">
 		<div class="login">
 			<div class="icons flex">
-				<div class="qq"></div>
+				<div class="qq" id="qq"></div>
 				<div class="wx"></div>
 				<div class="wb"></div>
 			</div>
@@ -94,5 +94,15 @@
 		</div>
 		
 	</div>
+	<script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="101473249" data-redirecturi="http://localhost:8007/hpp/pages/login/login.html" charset="utf-8" data-callback="true"></script>
+	<script>
+		 QC.Login({
+		       btnId:"qq"    //插入按钮的节点id
+		});
+		
+		console.log(QC.Login.check())
+
+	</script>
 </body>
+
 </html>

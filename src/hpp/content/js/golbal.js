@@ -21,6 +21,9 @@
 			}
 		}
 
+		this.width = root.innerWidth;
+		this.height = root.innerHeight;
+
 		this.init()
 	}
 

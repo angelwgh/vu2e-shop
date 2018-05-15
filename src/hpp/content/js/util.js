@@ -625,9 +625,162 @@
 
 	}();
 
+	function checkChange(data, module) {
+		var _max_height = module.height
+		var _max_width = golbal.width;
+
+		(data.width > _max_width) && (data.width = _max_width);
+		(data.height > _max_height) && (data.height = _max_height);
+		console.log(data.height)
+
+		if(data.left <= 0){
+			data.left = 0;
+		}
+
+		if(data.top <= 0){
+			data.top =0
+		}
+
+		// console.log(_max_height)
+		if(data.left + data.width >= window.innerWidth){
+			data.left = window.innerWidth - data.width
+		}
+
+		// console.log(_max_height)
+		if(data.top + data.height >= _max_height){
+			data.top = _max_height - data.height
+		}
+	}
+
+
+	function Change() {
+		
+	}
+	Change.prototype =  {
+		contructor: Change,
+		change(evt,type,data,module,moduleTop){
+			const self = this
+			self._evt = evt;
+			self._type = type;
+			self._data = data;
+			// console.log(data)
+			this.rotate = data.rotate
+			this._options = {}
+			self._module = module
+			self._moduleTop = moduleTop
+			// console.log(self)
+			this.maxHeight = module.height
+			self[type+'Change']()
+			
+			// console.log(editorData)
+		},
+		bottomChange(){
+			// console.log(this._data)
+			var rotate = this.rotate || 0
+			var height;
+			var scaleY;
+			// console.log()
+			// if(this._data.type == 'img'){
+				height = this._data.height -this._evt.deltaX*Math.sin(rotate*Math.PI/180) + this._evt.deltaY*Math.cos(rotate*Math.PI/180)
+				height = height > 0 ? height : 0;
+				this._data.height = height;
+			// }else if(this._data.type = 'text'){
+			// 	// var scale = 
+			// 	height = this._data.height * this._data.scaleY -this._evt.deltaX*Math.sin(rotate*Math.PI/180) + this._evt.deltaY*Math.cos(rotate*Math.PI/180);
+			// 	// height = height
+			// 	// console.log(height)
+			// 	// console.log(this._data.height)
+			// 	scaleY = height / this._data.height
+			// 	this._data.scaleY = scaleY;
+			// 	this._data.height = height;
+			// }
+			// this._options.height = this._data.height = height
+		},
+		topChange() {	
+			const height = this._data.height + this._evt.deltaX*Math.sin(this.rotate*Math.PI/180) - this._evt.deltaY*Math.cos(this.rotate*Math.PI/180)
+			const top = this._data.top -this._evt.deltaX*Math.sin(this.rotate*Math.PI/180) + this._evt.deltaY*Math.cos(this.rotate*Math.PI/180)
+			if(top <= 0) return
+			const maxTop =  top + height;
+			this._options.height = this._data.height = height > 0 ? height : 0;
+			this._data.top = top > maxTop ? maxTop : top
+			this._options.top = this._data.top + this._moduleTop
+		},
+		leftChange() {
+			const width = this._data.width - this._evt.deltaX*Math.cos(this.rotate*Math.PI/180) - this._evt.deltaY*Math.sin(this.rotate*Math.PI/180)
+			const left = this._data.left +this._evt.deltaX*Math.cos(this.rotate*Math.PI/180) + this._evt.deltaY*Math.sin(this.rotate*Math.PI/180)
+			const mxLeft = left + width;
+			if(left <= 0 ) return;
+			this._options.width = this._data.width = width > 0 ? width : 0;
+			this._options.left = this._data.left = left > mxLeft ? mxLeft : left;
+
+		},
+		rightChange () {
+			console.log()
+			var  width = this._data.width + this._evt.deltaX*Math.cos(this.rotate*Math.PI/180) + this._evt.deltaY*Math.sin(this.rotate*Math.PI/180)
+			// var  left = this._data.left + 
+			// var left = this._data.left + this._evt.deltaX / 2;
+			console.log(this._evt.deltaY / 2)
+			var top = this._data.top + this._evt.deltaY
+			if(this._data.left + width >= window.innerWidth) return;
+			// this.
+			this._options.width = this._data.width = width > 0 ? width : 0;
+		},
+
+		corner1Change() {
+			this.topChange()
+			this.leftChange()
+		},
+
+		corner2Change() {
+			this.topChange()
+			this.rightChange()
+		},
+
+		corner3Change() {
+			this.leftChange()
+			this.bottomChange()
+		},
+
+		corner4Change() {
+			this.rightChange()
+			this.bottomChange()
+		},
+
+		moveChange() {
+			// if(this._data.left <= 0 || this._data.top <= 0 || this._data.left + this._data.width >= window.innerWidth){
+			// 	return
+			// }
+			this._options.left =  this._data.left += this._evt.deltaX
+			this._data.top += this._evt.deltaY
+			this._options.top = this._data.top + this._moduleTop
+
+			if(this._data.left <= 0){
+				this._data.left = 0;
+			}
+
+			if(this._data.top <= 0){
+				this._data.top =0
+			}
+
+			if(this._data.left + this._data.width >= window.innerWidth){
+				this._data.left = window.innerWidth - this._data.width
+			}
+
+			if(this._data.top + this._data.height >= this.maxHeight){
+				this._data.top = this.maxHeight - this._data.height
+			}
+		},
+
+		rotateChange() {
+			console.log(1)
+			// this._options.rotate = this._data.rotate += this._evt.deltaY
+		}
+	};
 
 	function Util() {
-		
+
+		this.checkChange = checkChange
+		this.Change = Change
 	}
 
 	Util.prototype = {
@@ -671,7 +824,8 @@
 			return obj;
 		},
 		Canvas2Image: Canvas2Image,
-		MyCanvas: MyCanvas
+		MyCanvas: MyCanvas,
+
 	}
 
 

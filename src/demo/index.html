@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="content/lib/jquery-ui-themes-1.12.1/jquery-ui.css">
+	<link rel="stylesheet" href="content/lib/jquery-ui-themes-1.12.1/jquery-ui.theme.css">
+</head>
+<body>
+	<div id="dialog" title="基本的对话框">
+	  <p>这是一个默认的对话框，用于显示信息。对话框窗口可以移动，调整尺寸，默认可通过 'x' 图标关闭。</p>
+	</div>
+	<div id="jsonp"></div>
+	<script src="content/lib/jquery-ui-1.12.1.custom/external/jquery/jquery.js"> </script>
+	<script src="content/lib/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
+	<script src="content/js/jsonp.js?callback=fn"></script>
+	<script>
+		console.log($.ui)
+		var a = $.widget('wgh.abcd', $.ui.dialog,  {
+			wgh: function () {
+				console.log(this)
+			}
+		})
+		// console.dir(a)
+		$(function() {
+		    $( "#dialog" ).abcd().abcd('wgh');    
+		});
+
+		function fn(data) {
+			console.log(data)
+			$("#jsonp").html(data.text)
+		}
+	</script>
+</body>
+</html>

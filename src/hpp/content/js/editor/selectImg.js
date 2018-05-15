@@ -2,6 +2,7 @@
 	root.selectImg = factory(root)
 })(this, function (root) {
 
+	var change = new util.Change()
 
 	function doInput(id){
 	    var inputObj = document.createElement('input');
@@ -27,20 +28,9 @@
 	}
 
 	function drawToCanvas(imgData){
-	    // var cvs = document.querySelector('#cvs');
-	    //     cvs.width=375;
-	    //     cvs.height=400;
-	        // var ctx = cvs.getContext('2d');
 	        var img = document.getElementById('imgsrc')
 	        img.src = imgData
-	        // var img = new Image;
-	        //     img.src = imgData;
-	            // console.dir(img)
 
-	            // img.onload = function(){//必须onload之后再画
-	            //     ctx.drawImage(img,0,0,img.width,img.height);
-	            //     strDataURI = cvs.toDataURL();//获取canvas base64数据
-	            // }
 	}
 
 
@@ -62,7 +52,11 @@
 							</div>\
 						</div>\
 						<div class="container">\
-							<div style="text-align: center; margin-top: 5px;">\
+							<div style="position: absolute"\
+								 :style="{\
+									left: left + \'px\',\
+									top: top + \'px\'\
+								 }">\
 								<croppa v-model="myCroppa"\
 										:width="width"\
 										:height="height"\
@@ -75,6 +69,14 @@
 									    v-on:image-remove="remove"\
 									    ></croppa>\
 							</div>\
+							<edit-focus-wrap \
+							 :focus-wrap-data="focusWrapData"\
+							 :focus-wrap-editor="editorData"\
+							 :focus-wrap-top="top"\
+							 :block-model="blockModel"\
+							 v-on:move="change"\
+							 >\
+							</edit-focus-wrap>\
 							<div class="btns-group" v-if="!imgData">\
 								<div class="btn-item" v-on:click="selectImg">\
 									从手机相册选择\
@@ -90,15 +92,22 @@
 							</div>\
 						</div>\
 				  </div>',
+		components: {
+			'edit-focus-wrap': editFocusWrap,
+		},
 		props:{
 			editorData: {
 				type: Object,
 				default: function () {
 					return {}
 				}
+			},
+			module:{
+				type: Object
 			}
 		},
 		data: function () {
+			console.log(this.editorData)
 			return {
 				headTop: golbal.headTop,
 				headTopColor: golbal.headTopColor,
@@ -109,19 +118,56 @@
 				title:'手机相册',
 				myCroppa: {},
 				imgData:'',
-				imgsrc:''
+				imgsrc:'',
+				focusWrapData: {
+					model: 2,
+					showTools: false,
+					showRotate: false,
+					showAlignTools: false
+				},
+				blockModel: true,
+				initSize: null,
+				border:0
 			}
 		},
 		computed: {
 			width: function () {
+				// console.log(editorData.model)
 				return this.editorData.width;
 			},
 			height: function () {
 				return this.editorData.height
+			},
+			left: function () {
+				// console.log(this.editorData.top)
+				return this.editorData.left;
+			},
+			top: function () {
+				return this.editorData.top
 			}
+			
 		},
 		methods: {
+			init: function () {
+				this.initSize = {
+					top: this.editorData.top
+				}
+				
+				this.border = this.editorData.borderRadiusWidth;
+				this.editorData.top = 10;
+				this.setCorner(0)
+			},
+			setCorner: function (border) {
+				var editorData = this.editorData
+				for(var key in editorData){
+					if(/Radius/.test(key)){
+						editorData[key] = border
+					}
+				}
+			},
 			back: function () {
+				this.editorData.top = this.initSize.top;
+				this.setCorner(this.border)
 				this.$emit('close')
 			},
 
@@ -140,6 +186,7 @@
 				this.imgsrc = this.myCroppa.generateDataUrl()
 				// console.log(this.imgsrc)
 				this.editorData.src = this.imgsrc
+
 				// console.log(this.editorData)
 				// var img = new()
 				this.back()
@@ -181,26 +228,29 @@
 				// console.log('scale=' +scale)
 				// // console.log(w,h)
 				// console.log(window.innerWidth)
+			},
+			change:function (evt,type) {
+				console.log(evt)
+				console.log(type)
+				// this.change()
+				change.change(evt, type, this.editorData, this.module, 0)
 			}
 		},
-
+		created: function () {
+			this.init()
+		},
 		mounted: function () {
-			console.log(this.editorData.type)
 			if(this.editorData.type == 'text'){
 				this.back()
 			}
-			var vm = this
-			this.$nextTick(function () {
-				vm.setCanvasView()
-			})
+
 		},
 		watch:{
 			editorData:function (val,olVal) {
 				if(val.type  == 'text'){
 					this.back()
 				}
-				// console.log(val.type)
-				// console.log(olVal.type)
+
 			}
 		}
 	}
