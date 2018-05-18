@@ -1012,7 +1012,7 @@
 			}
 		},
 		data() {
-			console.log(colorPicker)
+			// console.log(colorPicker)
 			return {
 				showBorder:true,
 				showTextStyle: false,
@@ -1452,21 +1452,32 @@
 						
 					}
 				}else if(module !=null){
-					var position = this.moduleEditorToolsPosition;
-					var obj = {};
-					for(var key in paste){
-						obj[key] = paste[key];
-						
-					}
-					obj.top = position.top;
-					obj.left = position.left
-					obj.textAlign = ''
-					module.editors.push(obj)
-					console.log(this.moduleEditorToolsPosition)
+					this.pasteModule()
+					
+					// console.log(this.moduleEditorToolsPosition)
 
 				}
 				
 				this.setOptions(paste)
+			},
+			pasteModule: function () {
+				console.log(this.focusWrapTop)
+				console.log(this.translateY)
+				console.log(this.focusWrapTop + this.translateY)
+				var paste = this.clipboard;
+				var module = this.currentMudule;
+				var position = this.moduleEditorToolsPosition;
+				console.log(this.currentMudule)
+				var obj = {};
+				for(var key in paste){
+					obj[key] = paste[key];
+					
+				}
+				obj.top = position.top - (this.focusWrapTop + this.translateY);
+				obj.left = position.left
+				// obj.textAlign = ''
+				util.checkChange(obj, module)
+				module.editors.push(obj)
 			},
 
 			lock: function () {
@@ -1598,10 +1609,13 @@
 				// 改变圆角大小
 				// console.log(evt)
 				var max = this.maxRadiuwidth
-				var type = evt.target.dataset.type,x,w,h,
+				var type = evt.target.dataset.type,
+				x,
+				w,
+				h,
 				radius = this.radius,
 				editor = this.currentEditor;
-
+				console.log(radius)
 				w = this.currentEditor.width;
 				h = this.currentEditor.height;
 				console.log(type)
@@ -1639,6 +1653,10 @@
 					radius.width = this.radius.y > 0 ? this.radius.y : 0
 					// radius = radius > h/2 ? h/2 : radius
 				}
+
+				(radius.x < 0) && (radius.x = 0);
+				(radius.y < 0) && (radius.y = 0)
+
 
 				this.setBorderRadius()
 
@@ -1772,6 +1790,7 @@
 								vm.select(null,moduleIndex, -1, evt )
 							}
 							vm.showModuleEditorTools = true
+							console.log(evt)
 							vm.moduleEditorToolsPosition={
 								top:evt.changedTouches[0].clientY,
 								left:evt.changedTouches[0].clientX

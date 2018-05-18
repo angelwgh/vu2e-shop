@@ -483,11 +483,69 @@ function InternationTm(){
 		]
 	}
 }
+
+// 国内商标注册
+function InlandTm(argument) {
+	Database.call(this)
+
+	this.data = {
+		list: [
+			{
+				id: 0,
+				name:'transfer',
+				name_cn:'商标转让',
+				imgsrc: '../content/images/inland/transfer/20180518_164105_000.jpg',
+				imgs:[
+					'../content/images/inland/transfer/20180518_164105_001.jpg',
+					'../content/images/inland/transfer/20180518_164105_002.jpg',
+					'../content/images/inland/transfer/20180518_164105_003.jpg',
+					'../content/images/inland/transfer/20180518_164105_004.jpg',
+					'../content/images/inland/transfer/20180518_164105_005.jpg',
+					'../content/images/inland/transfer/20180518_164105_006.jpg',
+					'../content/images/inland/transfer/20180518_164105_007.jpg',
+					'../content/images/inland/transfer/20180518_164105_008.jpg',
+					'../content/images/inland/transfer/20180518_164105_009.jpg',
+					'../content/images/inland/transfer/20180518_164105_012.jpg',
+				],
+				info: '商标注册人在注册商标的有效期内，依法定程序，将商标专用权转让给另一方'
+			},
+			{
+				id: 1,
+				name:'change',
+				name_cn:'商标变更',
+				imgsrc: '../content/images/inland/change/20180518_165628_013.jpg',
+				imgs:[
+					'../content/images/inland/change/20180518_165628_014.jpg',
+					'../content/images/inland/change/20180518_165628_015.jpg',
+					'../content/images/inland/change/20180518_165628_016.jpg',
+					'../content/images/inland/change/20180518_165628_017.jpg',
+				],
+				info: '商标变更主要包括变更商标注册人名义、地址、代理人，或者删减注册申请中指定商品。'
+			},
+			{
+				id: 1,
+				name:'recheck',
+				name_cn:'商标驳回复审',
+				imgsrc: '../content/images/inland/recheck/20180518_165628_013.jpg',
+				imgs:[
+					'../content/images/inland/change/20180518_165628_014.jpg',
+					'../content/images/inland/change/20180518_165628_015.jpg',
+					'../content/images/inland/change/20180518_165628_016.jpg',
+					'../content/images/inland/change/20180518_165628_017.jpg',
+				],
+				info: '商标注册人在注册商标的有效期内，依法定程序，将商标专用权转让给另一方'
+			}
+		]
+	}
+
+}
+
+// 继承对象
 inherit(Agent, Database)
 inherit(Copyright, Database)
 inherit(TradeMark, Database)
 inherit(InternationTm, Database)
-
+inherit(InlandTm, Database)
 
 ;(function (root, factory) {
 	root.configData = factory(root);
@@ -497,6 +555,7 @@ inherit(InternationTm, Database)
 	var trademark = new TradeMark()
 	var copyright = new Copyright();
 	var internationTm = new InternationTm()
+	var inlandTm =  new InlandTm()
 	function ConfigData() {
 		this.init()
 	}
@@ -691,6 +750,21 @@ inherit(InternationTm, Database)
 			var mock =   Mock.mock({
 				'jsonBody':[internationTm.findOne('name', type)],
 				'list':internationTm.find()
+			})
+
+			setTimeout(function () {
+				success(mock)
+			})
+			
+		},
+		getInlandTm: function (data) {
+			// console.log(id)
+			var type = data.data.type
+			var success = data.success || this.noop
+			console.log(type)
+			var mock =   Mock.mock({
+				'jsonBody':[inlandTm.findOne('name', type)],
+				'list':inlandTm.find()
 			})
 
 			setTimeout(function () {
